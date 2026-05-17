@@ -26,6 +26,7 @@ async function updateRates() {
 
         // 3. 构建符合我们定义的 CurrencyRateEntity JSON 数据结构
         const output = {
+            version: 1, // 🌟 显式声明接口版本号，保障向后兼容
             base: 'EUR', // 🌟 显式声明当前的汇率基准货币
             rates: scaledRates,
             date: data.date, // 欧洲央行官方发布日期
@@ -33,8 +34,8 @@ async function updateRates() {
         };
 
         // 4. 写入本地文件
-        fs.mkdirSync('ledger', { recursive: true });
-        fs.writeFileSync('ledger/exchange_rates.json', JSON.stringify(output, null, 2));
+        fs.mkdirSync('ledger/v1', { recursive: true });
+        fs.writeFileSync('ledger/v1/exchange_rates.json', JSON.stringify(output, null, 2));
         console.log('🎉 汇率高精度定点数 JSON 转换并写入成功！');
     } catch (error) {
         console.error('❌ 汇率抓取与转换失败:', error);
