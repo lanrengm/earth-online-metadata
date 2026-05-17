@@ -26,6 +26,7 @@ async function updateRates() {
 
         // 3. 构建符合我们定义的 CurrencyRateEntity JSON 数据结构
         const output = {
+            base: 'EUR', // 🌟 显式声明当前的汇率基准货币
             rates: scaledRates,
             date: data.date, // 欧洲央行官方发布日期
             cached_at: new Date().toISOString() // 云端抓取时间

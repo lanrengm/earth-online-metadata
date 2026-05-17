@@ -7,6 +7,9 @@ on:
     - cron: '30 15 * * *'
   workflow_dispatch: # 允许您在 GitHub 网页上手动点击 "Run workflow" 按钮立即执行一次
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # 🌟 提前启用 Node.js 24 执行环境，消除官方废弃警告
+
 permissions:
   contents: write # 授予云端 Actions 权限，允许它将生成的文件写回仓库
 
@@ -20,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 24
 
       - name: Run Update Script
         run: node update_ledger_rates.js
