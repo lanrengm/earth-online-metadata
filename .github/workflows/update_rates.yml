@@ -1,0 +1,34 @@
+name: Auto Update Exchange Rates
+
+on:
+  schedule:
+    # 每天北京时间晚上 23:30 自动执行一次 (15:30 UTC)
+    # 这个时间欧洲央行当天的最新汇率已经完全公布并稳定
+    - cron: '30 15 * * *'
+  workflow_dispatch: # 允许您在 GitHub 网页上手动点击 "Run workflow" 按钮立即执行一次
+
+permissions:
+  contents: write # 授予云端 Actions 权限，允许它将生成的文件写回仓库
+
+jobs:
+  update-rates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Run Update Script
+        run: node update_ledger_rates.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add ledger/exchange_rates.json
+          git commit -m "chore: auto update exchange rates [skip ci]" || echo "No changes to commit"
+          git push origin main
