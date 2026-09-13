@@ -11,19 +11,19 @@ const themeLabel = computed(() =>
 <template>
   <header class="app-nav">
     <div class="app-nav-inner">
-      <RouterLink to="/" class="app-nav-brand">🌍 Earth Online</RouterLink>
+      <RouterLink to="/" class="app-nav-brand">Earth Online</RouterLink>
       <nav class="app-nav-right">
         <nav class="app-nav-links">
-          <RouterLink to="/">主页</RouterLink>
-          <RouterLink to="/tools">在线工具</RouterLink>
+          <RouterLink to="/"><span class="mi">home</span>主页</RouterLink>
+          <RouterLink to="/tools"><span class="mi">widgets</span>在线工具</RouterLink>
         </nav>
         <button
           class="theme-btn"
           :title="`点击切换主题（当前：${themeLabel}）`"
           @click="nextTheme()"
         >
-          <span v-if="state.effective === 'dark'">🌙</span>
-          <span v-else>☀️</span>
+          <span class="mi" v-if="state.effective === 'dark'">dark_mode</span>
+          <span class="mi" v-else>light_mode</span>
           <span class="theme-label">{{ themeLabel }}</span>
         </button>
       </nav>
@@ -33,6 +33,8 @@ const themeLabel = computed(() =>
 
 <style scoped>
 .app-nav-right { display: flex; align-items: center; gap: 20px; }
+.app-nav-links a { display: inline-flex; align-items: center; gap: 4px; }
+.app-nav-links .mi { font-size: 18px; }
 .theme-btn {
   display: inline-flex; align-items: center; gap: 6px;
   height: 36px; padding: 0 14px; border-radius: 999px;

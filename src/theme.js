@@ -1,4 +1,4 @@
-// 🌍 全站主题：亮色 / 暗色 / 跟随系统（对齐 eo es_theme 亮暗双主题）
+// 全站主题：亮色 / 暗色 / 跟随系统（对齐 eo es_theme 亮暗双主题）
 import { reactive } from 'vue'
 
 const STORAGE_KEY = 'eo_theme'

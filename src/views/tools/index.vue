@@ -13,7 +13,7 @@ import { toolRoutes } from '../../router/index.js'
         :to="t.path"
         class="app-card tool-card"
       >
-        <div class="tool-icon">{{ t.meta.icon }}</div>
+        <div class="tool-icon" v-if="t.meta.icon"><span class="mi">{{ t.meta.icon }}</span></div>
         <h3>{{ t.meta.title }}</h3>
         <p>{{ t.meta.desc }}</p>
       </RouterLink>
@@ -27,7 +27,8 @@ import { toolRoutes } from '../../router/index.js'
 .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
 .tool-card { display: block; padding: 20px; transition: border-color .15s ease, box-shadow .15s ease; }
 .tool-card:hover { text-decoration: none; border-color: var(--primary); box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }
-.tool-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--primary-container); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 12px; }
+.tool-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--primary-container); color: var(--on-primary-container); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.tool-icon .mi { font-size: 24px; }
 .tool-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
 .tool-card p { font-size: 13px; color: var(--on-surface-variant); line-height: 1.5; }
 </style>

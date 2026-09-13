@@ -19,7 +19,7 @@
     </section>
 
     <div class="alert-card">
-      <h3>⚠️ 【特别警示】备份与数据安全重要提示</h3>
+      <h3><span class="mi">warning</span> 【特别警示】备份与数据安全重要提示</h3>
       <p>由于数据全部存储在本地物理设备上，一旦您卸载本应用、清除应用数据、刷机或遭遇设备物理损坏，您的所有记录都将彻底丢失，且没有任何渠道可以找回。我们强烈建议您定期前往「设置 -> 备份与恢复」功能，手动将备份文件导出并安全保管于您的外部云盘或备份介质中。</p>
     </div>
 
@@ -47,6 +47,7 @@
   padding: 20px 24px; margin-bottom: 16px;
   color: var(--on-primary-container);
 }
-.alert-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.alert-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.alert-card h3 .mi { font-size: 18px; }
 .alert-card p { font-size: 14px; line-height: 1.8; }
 </style>

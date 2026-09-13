@@ -5,6 +5,12 @@
 - 根目录的 assets 目录给 README.md 使用，用于给看仓库的人提供图片演示，不要和 web 网站的 assets 混淆。
 - 和汇率相关代码及文件不要碰，这是 apk 的接口，不是 server 的 web 服务，所以在改 web 的时候不要误改 apk 接口。
 
+## 发布
+
+- **server 仓库发布**：用 **`eo server-release`**（在 app 仓库根执行）。流程：dev→main 合并 → github 完整同步 → gitee 展示分支（README+assets）同步。
+- 改动在 **dev** 分支开发，上线用 `eo server-release`，**不要手动操作分支或 gitee**。
+- **app 发布**用 `eo release`（不触碰 server 仓库）。详见 `tools/README.md`。
+
 ## 汇率数据
 
 欧洲央行（ECB）汇率，EUR 基准，由 GitHub Actions 每日 23:30 定时更新。

@@ -1,17 +1,17 @@
 <script setup>
-// 主页：品牌首屏 + 特色面板，M3 亮色风格
+// 主页：品牌首屏 + 特色面板，M3 亮色风格（图标用 Material Symbols）
 const features = [
-  { icon: '🎮', title: '游戏化人生属性面板', desc: '将日常习惯打卡、待办清单和理财账单完全量化为角色经验值（EXP）与金币，看着自己在现实生活中一步步“打怪升级”！' },
-  { icon: '🔒', title: '绝对零云端隐私保障', desc: '软件不设任何后台云端数据库，完全单机物理脱网运行。所有记账账单与私人成长日记仅物理留存在您设备中。' },
-  { icon: '📈', title: '高精度汇率定点数计算', desc: '内置高精度定点数账本换算，每日与欧洲央行（ECB）公开汇率同步，本地无感实现多币种资产计算，杜绝插屏广告。' },
-  { icon: '💾', title: '自主备份与灵活导出', desc: '拒绝被软件绑定！支持一键生成本地备份压缩包，可完全自主地上传至您信任的私人网盘或物理介质。' },
+  { icon: 'sports_esports', title: '游戏化人生属性面板', desc: '将日常习惯打卡、待办清单和理财账单完全量化为角色经验值（EXP）与金币，看着自己在现实生活中一步步“打怪升级”！' },
+  { icon: 'lock', title: '绝对零云端隐私保障', desc: '软件不设任何后台云端数据库，完全单机物理脱网运行。所有记账账单与私人成长日记仅物理留存在您设备中。' },
+  { icon: 'trending_up', title: '高精度汇率定点数计算', desc: '内置高精度定点数账本换算，每日与欧洲央行（ECB）公开汇率同步，本地无感实现多币种资产计算，杜绝插屏广告。' },
+  { icon: 'save', title: '自主备份与灵活导出', desc: '拒绝被软件绑定！支持一键生成本地备份压缩包，可完全自主地上传至您信任的私人网盘或物理介质。' },
 ]
 </script>
 
 <template>
   <div>
     <section class="hero">
-      <div class="hero-logo">🌍</div>
+      <div class="hero-logo"><span class="mi">public</span></div>
       <h1 class="hero-title">
         掌控人生属性<br />
         <span class="gradient-text">像玩游戏一样</span>记录成长
@@ -28,7 +28,7 @@ const features = [
 
     <section class="feature-grid">
       <div v-for="f in features" :key="f.title" class="app-card feature-card">
-        <div class="feature-icon">{{ f.icon }}</div>
+        <div class="feature-icon"><span class="mi">{{ f.icon }}</span></div>
         <div class="feature-body">
           <h3>{{ f.title }}</h3>
           <p>{{ f.desc }}</p>
@@ -59,6 +59,8 @@ const features = [
   margin-top: 40px;
 }
 .feature-card { display: flex; gap: 18px; padding: 20px; }
+.hero-logo .mi { font-size: 46px; }
+.feature-icon .mi { font-size: 26px; }
 .feature-icon {
   width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
   background: var(--primary-container); color: var(--on-primary-container);
