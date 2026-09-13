@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Earth Online - 人生面板 | 本地效率与属性管理</title>
   <meta name="description" content="人生面板（Earth Online）是一款全本地化运行的个人效率、记账与人生属性面板管理工具。零隐私收集，绝对安全的数据自主权。" />
+  <!-- 首屏前设置主题，避免闪烁（FOUC） -->
+  <script>
+    (function () {
+      var m = localStorage.getItem('eo_theme');
+      var dark = m ? m === 'dark' : (m === 'system' ? matchMedia('(prefers-color-scheme: dark)').matches : matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>

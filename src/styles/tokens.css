@@ -31,6 +31,24 @@
   --shadow-none: none;
 }
 
+/* ── 暗色主题（对齐 eo esDarkTheme：surface #13171A、容器 #1A1D22） ── */
+:root[data-theme='dark'] {
+  --primary: #4dd9c8;
+  --on-primary: #00372f;
+  --primary-container: #005047;
+  --on-primary-container: #9ef1e4;
+
+  --surface: #13171a;
+  --surface-container-low: #1a1d22;
+  --surface-container-high: #2a2e33;
+
+  --on-surface: #e1e3e3;
+  --on-surface-variant: #bec4c3;
+  --outline: #878c8b;
+  --outline-variant: #444746;
+  --error: #ffb4ab;
+}
+
 /* ── 基础 Reset ── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 

@@ -1,0 +1,50 @@
+<template>
+  <div class="legal-page">
+    <h1 class="page-title">隐私政策与个人信息保护声明</h1>
+    <p class="page-sub">我们非常重视您的隐私。人生面板（Earth Online）严格遵循「零隐私收集」原则。本隐私政策旨在向您说明本应用在保护您隐私方面的坚定立场和数据处理方式。</p>
+
+    <section class="legal-card">
+      <h2>1. 零隐私数据收集声明</h2>
+      <p>由于本应用不具备后台服务器与任何数据上传的网络接口，我们不会、也无法收集您的任何个人身份信息（如姓名、邮箱、手机号等）、敏感生物识别数据、位置轨迹信息、设备唯一标识符（IMEI/IDFA等）或应用交互日志。</p>
+    </section>
+
+    <section class="legal-card">
+      <h2>2. 设备敏感权限请求与使用</h2>
+      <p>为保障本地业务功能的正常使用，本应用可能在特定场景下向您请求设备敏感权限：</p>
+      <ul>
+        <li><strong>存储/媒体库权限：</strong>仅在您主动修改头像（从相册中选择本地图片）或者进行「数据备份/恢复」（导出或读取备份压缩包）时申请。该权限读取和写入的数据完全在您本地处理，绝对不含有任何形式的网络传输。</li>
+      </ul>
+    </section>
+
+    <section class="legal-card">
+      <h2>3. 零第三方 SDK 与网络请求声明</h2>
+      <p>我们极为注重应用环境的纯净与安全。本应用中未集成任何第三方的商业广告推送 SDK、用户标识追踪 SDK（如各类分析统计工具等）。唯一发起的主动网络数据获取为：</p>
+      <p>在您使用「账本汇率换算」功能时，会通过受信任的公共分发网络（如 jsDelivr 与 GitHub）向欧洲央行（European Central Bank）发起公开汇率数据的被动拉取请求。该请求仅限用于下载最新汇率数值，我们绝不会借此上传、收集或共享您的任何记账资产、财务日志或个人数据，所有操作依然完全局限在您本地设备上。</p>
+    </section>
+
+    <section class="legal-card">
+      <h2>4. 数据的彻底物理销毁</h2>
+      <p>您对您的本地数据拥有绝对控制权。除了在应用内进行修改和删除，您随时可以通过系统自带的「清除应用数据」或「卸载应用」功能，在本地物理介质上一次性彻底销毁本应用所创建的全部本地数据库与配置文件，实现无可挽回的绝对安全删除。</p>
+    </section>
+
+    <section class="legal-card">
+      <h2>5. 政策修订与支持联络</h2>
+      <p>为符合应用商店最新的合规标准，本隐私政策可能会适时进行更新，最新版本将在本页面展示。</p>
+      <p>当您使用「意见反馈」功能向我们发送邮件时，我们会附带软件版本及平台环境信息，以便于为您排查和定位问题，这些数据仅用于处理您的反馈，不会用于任何其它目的。如果您对本隐私政策或本地数据处理方式有任何问题或宝贵意见，随时可以通过开发支持渠道联络我们。</p>
+    </section>
+  </div>
+</template>
+
+<style scoped>
+.page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
+.page-sub { color: var(--on-surface-variant); margin: 12px 0 24px; line-height: 1.7; }
+.legal-card {
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px; margin-bottom: 16px;
+}
+.legal-card h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+.legal-card p, .legal-card li { font-size: 15px; color: var(--on-surface-variant); line-height: 1.8; }
+.legal-card ul { padding-left: 20px; }
+</style>

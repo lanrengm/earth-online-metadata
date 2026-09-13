@@ -1,0 +1,52 @@
+<template>
+  <div class="legal-page">
+    <h1 class="page-title">用户协议与服务条款</h1>
+    <p class="page-sub">欢迎您使用人生面板（Earth Online）。本协议是您与本应用开发者之间就使用本应用所订立的法律协议。请在使用本应用前认真阅读并理解以下所有条款。</p>
+
+    <section class="legal-card">
+      <h2>1. 协议的接受与效力</h2>
+      <p>当您下载、安装、启动或使用人生面板时，即视为您已仔细阅读并完全同意接受本协议的全部条款。如果您不同意本协议的任何内容，请勿使用并立即卸载本应用。</p>
+    </section>
+
+    <section class="legal-card">
+      <h2>2. 纯本地化效率服务</h2>
+      <p>人生面板是一款全本地化运行的个人效率、记账与人生属性面板管理工具。我们为您提供任务追踪、资产管理、习惯打卡、备忘与人生日志等功能，旨在帮助您进行自我管理与记录。所有功能设计均完全基于您本地设备进行运算与渲染。</p>
+    </section>
+
+    <section class="legal-card">
+      <h2>3. 零云端同步与数据存储</h2>
+      <p>本应用秉持绝对的数据自主原则。本应用既无后台云端服务器，亦不集成任何网络云同步逻辑。您的所有个人属性、财务账单、打卡记录、头像等业务数据，将仅且只存储在您安装本应用的本地设备物理介质（如本地数据库及SharedPreferences）中。我们无法、也绝无可能收集、修改、上传或披露您的任何业务数据。</p>
+    </section>
+
+    <div class="alert-card">
+      <h3>⚠️ 【特别警示】备份与数据安全重要提示</h3>
+      <p>由于数据全部存储在本地物理设备上，一旦您卸载本应用、清除应用数据、刷机或遭遇设备物理损坏，您的所有记录都将彻底丢失，且没有任何渠道可以找回。我们强烈建议您定期前往「设置 -> 备份与恢复」功能，手动将备份文件导出并安全保管于您的外部云盘或备份介质中。</p>
+    </div>
+
+    <section class="legal-card">
+      <h2>5. 知识产权与免责声明</h2>
+      <p>应用中的所有界面设计、图标、算法及源代码均受相关知识产权法保护。在法律允许的最大范围内，本应用按「现状」及「现有」状态提供，开发者不承诺任何形式的默示或明示保证。对于因不可抗力、系统软硬件故障、用户手动卸载或设备丢失等导致的任何直接或间接数据损失、记录清空等后果，开发者不承担任何赔偿或法律责任。</p>
+    </section>
+  </div>
+</template>
+
+<style scoped>
+.page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
+.page-sub { color: var(--on-surface-variant); margin: 12px 0 24px; line-height: 1.7; }
+.legal-card {
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px; margin-bottom: 16px;
+}
+.legal-card h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+.legal-card p { font-size: 15px; color: var(--on-surface-variant); line-height: 1.8; }
+.alert-card {
+  background: var(--primary-container);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px; margin-bottom: 16px;
+  color: var(--on-primary-container);
+}
+.alert-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.alert-card p { font-size: 14px; line-height: 1.8; }
+</style>

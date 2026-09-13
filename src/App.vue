@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import AppNav from './components/AppNav.vue'
 </script>
 
@@ -11,8 +12,8 @@ import AppNav from './components/AppNav.vue'
     <footer class="app-footer">
       <p>© 2026 Earth Online（人生面板）· 全本地运行，零隐私收集</p>
       <nav>
-        <a href="privacy.html">隐私政策</a>
-        <a href="terms.html">用户协议</a>
+        <RouterLink to="/privacy">隐私政策</RouterLink>
+        <RouterLink to="/terms">用户协议</RouterLink>
       </nav>
     </footer>
   </div>

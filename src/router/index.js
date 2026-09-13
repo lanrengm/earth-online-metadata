@@ -14,6 +14,8 @@ const routes = [
     component: () => import('../views/tools/index.vue'),
     meta: { title: '在线工具' },
   },
+  { path: '/privacy', name: 'privacy', component: () => import('../views/Privacy.vue'), meta: { title: '隐私政策' } },
+  { path: '/terms', name: 'terms', component: () => import('../views/Terms.vue'), meta: { title: '用户协议' } },
   ...toolRoutes,
   // 兜底：未知路径回主页
   { path: '/:pathMatch(.*)*', redirect: '/' },
