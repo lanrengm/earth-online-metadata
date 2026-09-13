@@ -1,0 +1,98 @@
+/* ==========================================================================
+   🌍 EARTH ONLINE — M3 设计令牌（对齐 Flutter es_theme）
+   色板由品牌 seed #00897B（翠微森林）派生，语义映射自 lib/theme/es_theme.dart
+   ========================================================================== */
+:root {
+  /* ── 品牌 / 主色 ── */
+  --seed: #00897b;
+  --primary: #00897b;
+  --on-primary: #ffffff;
+  --primary-container: #a7f3e8;
+  --on-primary-container: #00201c;
+
+  /* ── 表面 / 层级 ── */
+  --surface: #f3f3f3;                 /* 页面背景（es_theme surface） */
+  --surface-container-low: #ffffff;   /* 卡片 / 浮层（es_theme surfaceContainerLow） */
+  --surface-container-high: #e6e6e6;  /* 可交互灰底 */
+
+  /* ── 文字 / 语义 ── */
+  --on-surface: #171d1b;
+  --on-surface-variant: #444746;
+  --outline: #717875;
+  --outline-variant: #c4c7c5;
+  --error: #ba1a1a;
+
+  /* ── 形状 / 排版 ── */
+  --radius-lg: 12px;                  /* 卡片（es_theme cardTheme） */
+  --radius-md: 10px;
+  --radius-sm: 8px;
+  --font-title: 'Outfit', -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+  --font-body: 'Inter', -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+  --shadow-none: none;
+}
+
+/* ── 基础 Reset ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  min-height: 100vh;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── 应用外壳 ── */
+.app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+.app-main { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px 24px 64px; }
+
+/* ── 顶部导航（仿 M3 AppBar：居中标题、无染色） ── */
+.app-nav {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--outline-variant);
+}
+.app-nav-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 24px;
+  height: 56px; display: flex; align-items: center; justify-content: space-between;
+}
+.app-nav-brand { font-family: var(--font-title); font-weight: 700; font-size: 18px; color: var(--on-surface); }
+.app-nav-brand:hover { text-decoration: none; }
+.app-nav-links { display: flex; gap: 24px; }
+.app-nav-links a { color: var(--on-surface-variant); font-weight: 500; font-size: 15px; }
+.app-nav-links a.router-link-active { color: var(--primary); font-weight: 600; }
+.app-nav-links a:hover { text-decoration: none; color: var(--primary); }
+
+/* ── 卡片（无阴影纯白圆角块，对齐 M3 cardTheme） ── */
+.app-card {
+  background: var(--surface-container-low);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-none);
+  border: 1px solid var(--outline-variant);
+}
+
+/* ── FilledButton（对齐 M3 FilledButton） ── */
+.app-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--primary); color: var(--on-primary);
+  border: none; border-radius: 999px;
+  padding: 12px 24px; font-size: 15px; font-weight: 600;
+  cursor: pointer; font-family: var(--font-body);
+  transition: filter .15s ease;
+}
+.app-btn:hover { filter: brightness(1.05); text-decoration: none; }
+.app-btn.secondary { background: var(--surface-container-high); color: var(--primary); }
+
+/* ── 页脚 ── */
+.app-footer {
+  border-top: 1px solid var(--outline-variant);
+  padding: 24px; text-align: center;
+  color: var(--on-surface-variant); font-size: 14px;
+}
+.app-footer nav { margin-top: 8px; display: flex; gap: 16px; justify-content: center; }
+.app-footer a { color: var(--on-surface-variant); }

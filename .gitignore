@@ -1,2 +1,12 @@
 **/.git
 **/desktop.ini
+
+# 构建产物
+dist/
+
+# 依赖
+node_modules/
+
+# 环境
+.env
+.env.*
