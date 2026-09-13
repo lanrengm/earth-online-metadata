@@ -1,24 +1,16 @@
-# Earth Online 发布仓库
+# 🌍 Earth Online 发布仓库
 
 【人生面板】/【地球在线】应用的官网、汇率数据与安装包发布仓库。
 
-## 官网
+<div align="center">
 
-https://lanrengm.github.io/earth-online-metadata/
+[![官网](https://img.shields.io/badge/访问官网-Earth_Online-00897b?style=for-the-badge&logo=githubpages&logoColor=white)](https://lanrengm.github.io/earth-online-metadata/)
+[![下载APK](https://img.shields.io/badge/下载APK-Gitee_Release-00897b?style=for-the-badge&logo=android&logoColor=white)](https://gitee.com/lanren_007/earth_online/releases)
+[![汇率数据](https://img.shields.io/badge/汇率-ECB_jsDelivr-00897b?style=for-the-badge&logo=git&logoColor=white)](https://cdn.jsdelivr.net/gh/lanrengm/earth-online-metadata@main/ledger/v1/exchange_rates.json)
 
-## 安装包下载（Android）
+</div>
 
-https://gitee.com/lanren_007/earth_online/releases
-
-## 汇率数据
-
-欧洲央行（ECB）汇率，EUR 基准，由 GitHub Actions 每日 23:30 定时更新。
-
-jsDelivr 加速链接：
-
-```
-https://cdn.jsdelivr.net/gh/lanrengm/earth-online-metadata@main/ledger/v1/exchange_rates.json
-```
+---
 
 ## 功能简介
 
@@ -36,15 +28,11 @@ https://cdn.jsdelivr.net/gh/lanrengm/earth-online-metadata@main/ledger/v1/exchan
 
 ## 加入内测Q群
 
-![QQ群/二维码](assets/qq_qrcode.jpg)
+<img class="eo-qr" src="assets/qq_qrcode.jpg" alt="QQ群二维码" style="width:220px;max-width:100%;" />
 
-## 仓库结构
+<style>
+@media (max-width: 768px) {
+  .eo-qr { width: 320px !important; }
+}
+</style>
 
-```
-├── .github/workflows/update_rates.yml   # 汇率定时更新工作流
-├── ledger/v1/exchange_rates.json        # 汇率数据
-├── update_ledger_rates.js               # 汇率抓取脚本
-├── index.html / privacy.html / terms.html / style.css / app.js   # 官网
-├── assets/                              # 应用截图与二维码
-└── README.md
-```
