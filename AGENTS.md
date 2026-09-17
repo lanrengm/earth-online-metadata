@@ -7,9 +7,10 @@
 
 ## 发布
 
-- **server 仓库发布**：用 **`eo server-release`**（在 app 仓库根执行）。流程：dev→main 合并 → github 完整同步 → gitee 展示分支（README+assets）同步。
-- 改动在 **dev** 分支开发，上线用 `eo server-release`，**不要手动操作分支或 gitee**。
-- **app 发布**用 `eo release`（不触碰 server 仓库）。详见 `tools/README.md`。
+- **server 仓库发布**：在本仓库根执行 **`tools\dev release`**（零依赖 Dart 脚本 `tools/dev/main.dart`，经 `tools\dev.cmd` 垫片直接 dart 执行，**不打包 exe**）。流程：dev→main 合并 → github 完整同步 → gitee 展示分支（README+assets）同步。
+- 演练加 `--dry-run`（或 `-n`）：`tools\dev release --dry-run`，只打印 git 命令不实际执行。
+- 改动在 **dev** 分支开发，上线用 `tools\dev release`，**不要手动操作分支或 gitee**。
+- **app 发布**用 app 仓库的 `eo release`（不触碰 server 仓库）。
 
 ## 汇率数据
 
@@ -42,6 +43,9 @@
 │       ├── AppNav.vue
 │       └── AppCard.vue
 ├── public/                # 静态资源（随构建进 dist）
+├── tools/
+│   ├── dev.cmd            # 发布垫片：tools\dev release
+│   └── dev/main.dart      # 发布脚本（零依赖 Dart，直接执行，无 exe）
 ├── assets/                # README 演示图（勿与 web 混淆）
 └── README.md
 ```
