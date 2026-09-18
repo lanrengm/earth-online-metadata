@@ -1,0 +1,84 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title} description={entry.data.description}>
+  <article class="article">
+    <header class="article-header">
+      <h1>{entry.data.title}</h1>
+      <div class="article-meta">
+        <time datetime={entry.data.date.toISOString().slice(0, 10)}>
+          {entry.data.date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {entry.data.tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+    </header>
+    <Content />
+  </article>
+</Base>
+
+<style is:global>
+  /* 文章排版（对标 distill.pub：窄栏沉浸阅读 + 清晰层级 + 多媒体组件容器） */
+  .article { max-width: 780px; margin: 0 auto; }
+  .article-header { margin-bottom: 32px; }
+  .article-header h1 { font-size: 34px; line-height: 1.25; font-weight: 800; font-family: var(--font-title); margin-bottom: 12px; }
+  .article-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--on-surface-variant); }
+  .article .tag {
+    padding: 2px 10px; border-radius: 999px;
+    background: var(--primary-container); color: var(--on-primary-container);
+    font-size: 12px;
+  }
+
+  .article h2 { font-size: 24px; font-weight: 700; margin: 40px 0 14px; font-family: var(--font-title); }
+  .article h3 { font-size: 18px; font-weight: 700; margin: 28px 0 10px; }
+  .article p, .article li { font-size: 16px; line-height: 1.85; color: var(--on-surface); }
+  .article p { margin-bottom: 16px; }
+  .article ul, .article ol { padding-left: 24px; margin-bottom: 16px; }
+  .article blockquote {
+    border-left: 3px solid var(--primary);
+    padding: 4px 16px; margin: 0 0 16px;
+    color: var(--on-surface-variant);
+  }
+  .article img { max-width: 100%; border-radius: var(--radius-lg); margin: 8px 0 16px; }
+  .article code {
+    font-size: 0.9em;
+    background: var(--surface-container-high);
+    border-radius: 6px; padding: 2px 6px;
+  }
+  .article pre {
+    background: var(--surface-container-high);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-md);
+    padding: 16px; overflow-x: auto; margin: 0 0 16px;
+  }
+  .article pre code { background: none; padding: 0; }
+  .article table { border-collapse: collapse; width: 100%; margin: 0 0 16px; font-size: 14px; }
+  .article th, .article td { border: 1px solid var(--outline-variant); padding: 8px 12px; text-align: left; }
+  .article th { background: var(--surface-container-high); font-weight: 700; }
+
+  /* MDX 内嵌多媒体组件（DataPanel 等，作用域覆盖 React 岛屿） */
+  .article .data-panel {
+    margin: 20px 0 24px;
+    background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .article .data-panel figcaption {
+    padding: 10px 16px; font-size: 13px; font-weight: 700;
+    border-bottom: 1px solid var(--outline-variant);
+    color: var(--on-surface-variant);
+  }
+  .article .data-panel-body { padding: 20px 16px; font-size: 14px; color: var(--on-surface-variant); text-align: center; }
+</style>

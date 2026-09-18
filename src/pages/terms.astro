@@ -1,4 +1,7 @@
-<template>
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="用户协议" description="人生面板（Earth Online）用户协议与服务条款。">
   <div class="legal-page">
     <h1 class="page-title">用户协议与服务条款</h1>
     <p class="page-sub">欢迎您使用人生面板（Earth Online）。本协议是您与本应用开发者之间就使用本应用所订立的法律协议。请在使用本应用前认真阅读并理解以下所有条款。</p>
@@ -28,26 +31,24 @@
       <p>应用中的所有界面设计、图标、算法及源代码均受相关知识产权法保护。在法律允许的最大范围内，本应用按「现状」及「现有」状态提供，开发者不承诺任何形式的默示或明示保证。对于因不可抗力、系统软硬件故障、用户手动卸载或设备丢失等导致的任何直接或间接数据损失、记录清空等后果，开发者不承担任何赔偿或法律责任。</p>
     </section>
   </div>
-</template>
+</Base>
 
-<style scoped>
-.page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
-.page-sub { color: var(--on-surface-variant); margin: 12px 0 24px; line-height: 1.7; }
-.legal-card {
-  background: var(--surface-container-low);
-  border: 1px solid var(--outline-variant);
-  border-radius: var(--radius-lg);
-  padding: 20px 24px; margin-bottom: 16px;
-}
-.legal-card h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
-.legal-card p { font-size: 15px; color: var(--on-surface-variant); line-height: 1.8; }
-.alert-card {
-  background: var(--primary-container);
-  border-radius: var(--radius-lg);
-  padding: 20px 24px; margin-bottom: 16px;
-  color: var(--on-primary-container);
-}
-.alert-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-.alert-card h3 .mi { font-size: 18px; }
-.alert-card p { font-size: 14px; line-height: 1.8; }
+<style>
+  .legal-card {
+    background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px; margin-bottom: 16px;
+  }
+  .legal-card h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  .legal-card p { font-size: 15px; color: var(--on-surface-variant); line-height: 1.8; }
+  .alert-card {
+    background: var(--primary-container);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px; margin-bottom: 16px;
+    color: var(--on-primary-container);
+  }
+  .alert-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .alert-card h3 .mi { font-size: 18px; }
+  .alert-card p { font-size: 14px; line-height: 1.8; }
 </style>

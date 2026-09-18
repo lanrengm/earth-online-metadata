@@ -115,6 +115,10 @@ a:hover { text-decoration: underline; }
 .app-footer nav { margin-top: 8px; display: flex; gap: 16px; justify-content: center; }
 .app-footer a { color: var(--on-surface-variant); }
 
+/* ── 页面标题（各页共用） ── */
+.page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
+.page-sub { color: var(--on-surface-variant); margin: 8px 0 24px; line-height: 1.7; }
+
 /* ── Material Symbols（对齐 app material_symbols_icons） ── */
 .mi {
   font-family: 'Material Symbols Rounded';

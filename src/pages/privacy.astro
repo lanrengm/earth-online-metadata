@@ -1,4 +1,7 @@
-<template>
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="隐私政策" description="人生面板（Earth Online）隐私政策与个人信息保护声明：零隐私收集。">
   <div class="legal-page">
     <h1 class="page-title">隐私政策与个人信息保护声明</h1>
     <p class="page-sub">我们非常重视您的隐私。人生面板（Earth Online）严格遵循「零隐私收集」原则。本隐私政策旨在向您说明本应用在保护您隐私方面的坚定立场和数据处理方式。</p>
@@ -33,18 +36,16 @@
       <p>当您使用「意见反馈」功能向我们发送邮件时，我们会附带软件版本及平台环境信息，以便于为您排查和定位问题，这些数据仅用于处理您的反馈，不会用于任何其它目的。如果您对本隐私政策或本地数据处理方式有任何问题或宝贵意见，随时可以通过开发支持渠道联络我们。</p>
     </section>
   </div>
-</template>
+</Base>
 
-<style scoped>
-.page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
-.page-sub { color: var(--on-surface-variant); margin: 12px 0 24px; line-height: 1.7; }
-.legal-card {
-  background: var(--surface-container-low);
-  border: 1px solid var(--outline-variant);
-  border-radius: var(--radius-lg);
-  padding: 20px 24px; margin-bottom: 16px;
-}
-.legal-card h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
-.legal-card p, .legal-card li { font-size: 15px; color: var(--on-surface-variant); line-height: 1.8; }
-.legal-card ul { padding-left: 20px; }
+<style>
+  .legal-card {
+    background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px; margin-bottom: 16px;
+  }
+  .legal-card h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  .legal-card p, .legal-card li { font-size: 15px; color: var(--on-surface-variant); line-height: 1.8; }
+  .legal-card ul { padding-left: 20px; }
 </style>

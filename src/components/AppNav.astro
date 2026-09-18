@@ -1,0 +1,82 @@
+---
+// 顶部导航：品牌 + 工具/文章入口 + 主题循环切换（亮→暗→跟随系统）
+import { withBase } from '../lib/paths.js';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const current = base && Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname;
+
+const links = [
+  { href: '/tools/', label: '在线工具', icon: 'widgets' },
+  { href: '/articles/', label: '文章', icon: 'article' },
+];
+---
+<header class="app-nav">
+  <div class="app-nav-inner">
+    <a href={withBase('/tools/')} class="app-nav-brand">Earth Online</a>
+    <nav class="app-nav-right">
+      <nav class="app-nav-links">
+        {links.map((l) => (
+          <a href={withBase(l.href)} class:list={[{ active: current.startsWith(l.href) }]}>
+            <span class="mi">{l.icon}</span>{l.label}
+          </a>
+        ))}
+      </nav>
+      <button class="theme-btn" type="button" title="点击切换主题">
+        <span class="mi" aria-hidden="true">light_mode</span>
+        <span class="theme-label">跟随系统</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .app-nav-right { display: flex; align-items: center; gap: 20px; }
+  .app-nav-links a { display: inline-flex; align-items: center; gap: 4px; }
+  .app-nav-links .mi { font-size: 18px; }
+  .app-nav-links a.active { color: var(--primary); font-weight: 600; }
+  .theme-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 36px; padding: 0 14px; border-radius: 999px;
+    border: 1px solid var(--outline-variant);
+    background: var(--surface-container-low);
+    color: var(--on-surface-variant);
+    font-size: 13px; cursor: pointer; font-family: var(--font-body);
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
+</style>
+
+<script>
+  // 主题循环切换：亮 → 暗 → 跟随系统（偏好存 localStorage，head 内联脚本负责首屏防闪）
+  const MODES = ['light', 'dark', 'system'];
+  const LABELS = { light: '亮色', dark: '暗色', system: '跟随系统' };
+  const media = matchMedia('(prefers-color-scheme: dark)');
+
+  const btn = document.querySelector('.theme-btn');
+
+  function resolve(mode) {
+    return mode === 'system' ? (media.matches ? 'dark' : 'light') : mode;
+  }
+
+  function apply(mode) {
+    const eff = resolve(mode);
+    document.documentElement.setAttribute('data-theme', eff);
+    if (!btn) return;
+    btn.querySelector('.mi').textContent = eff === 'dark' ? 'dark_mode' : 'light_mode';
+    btn.querySelector('.theme-label').textContent = LABELS[mode];
+    btn.title = `点击切换主题（当前：${LABELS[mode]}）`;
+  }
+
+  let mode = localStorage.getItem('eo_theme');
+  if (!MODES.includes(mode)) mode = 'system';
+  apply(mode);
+  media.addEventListener('change', () => apply(mode));
+
+  btn?.addEventListener('click', () => {
+    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+    localStorage.setItem('eo_theme', mode);
+    apply(mode);
+  });
+</script>

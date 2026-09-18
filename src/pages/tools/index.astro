@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import ToolGrid from '../../components/tools/ToolGrid.jsx';
+import { tools } from '../../tools/registry.js';
+import { withBase } from '../../lib/paths.js';
+---
+<Base title="在线工具" description="免费、纯本地计算、无需登录的小工具合集，与 Earth Online 人生面板同源设计。">
+  <h1 class="page-title">在线工具</h1>
+  <p class="page-sub">免费、纯本地计算、无需登录的小工具合集</p>
+  <ToolGrid client:load tools={tools} base={withBase('')} />
+</Base>
+
+<style is:global>
+  /* 工具区样式作用于 React 岛屿，需全局（对齐 it-tools 首屏：居中大搜索 + 网格卡片） */
+  .tool-area { display: flex; flex-direction: column; gap: 24px; }
+  .tool-search {
+    width: 100%; max-width: 520px; margin: 0 auto;
+    height: 48px; padding: 0 20px;
+    border: 1px solid var(--outline-variant); border-radius: 999px;
+    background: var(--surface-container-low); color: var(--on-surface);
+    font-size: 15px; font-family: var(--font-body);
+    outline: none; transition: border-color .15s ease;
+  }
+  .tool-search:focus { border-color: var(--primary); }
+  .tool-empty { text-align: center; color: var(--on-surface-variant); padding: 48px 0; }
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .tool-card { display: block; padding: 20px; transition: border-color .15s ease, box-shadow .15s ease; }
+  .tool-card:hover { text-decoration: none; border-color: var(--primary); box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }
+  .tool-icon {
+    width: 48px; height: 48px; border-radius: 12px; margin-bottom: 12px;
+    background: var(--primary-container); color: var(--on-primary-container);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tool-icon .mi { font-size: 24px; }
+  .tool-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .tool-card p { font-size: 13px; color: var(--on-surface-variant); line-height: 1.5; }
+</style>

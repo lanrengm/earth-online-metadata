@@ -1,0 +1,17 @@
+---
+// 主页 = 工具页入口：静态 meta 跳转（Astro redirects 不带 base 前缀，故手写）
+import { withBase } from '../lib/paths.js';
+const target = withBase('/tools/');
+---
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting…</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <link rel="canonical" href={target} />
+  </head>
+  <body>
+    <a href={target}>进入在线工具…</a>
+  </body>
+</html>
