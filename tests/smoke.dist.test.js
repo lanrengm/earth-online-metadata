@@ -21,6 +21,7 @@ describe.skipIf(!distReady)('dist smoke', () => {
       'tools/life-quest/index.html',
       'articles/index.html',
       'articles/site-relaunch/index.html',
+      'articles/education-percentile/index.html',
       'privacy/index.html',
       'terms/index.html',
     ]) {

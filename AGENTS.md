@@ -36,6 +36,7 @@
 | 样式 | — | tokens.css 设计令牌 + 原生 CSS，**不用 Tailwind** |
 | ESLint | 9（flat config） | 代码分析：astro + typescript-eslint + react-hooks 插件 |
 | Vitest | 4 | 自动化测试：单元 + 管线守卫 + dist 冒烟（tests/） |
+| ECharts | 6.1.0 | 文章图表（唯一封装入口 `src/components/articles/Chart.jsx`，按需注册；决策见 docs/架构决策.md #11） |
 
 关键约定：
 
@@ -88,7 +89,11 @@
 │   │   ├── Footer.astro   # 页脚
 │   │   ├── tools/ToolGrid.jsx       # 工具网格（搜索 + 卡片，React 岛屿）
 │   │   ├── tools/LifeQuestTree.jsx  # 人生主线任务板（首个工具）
-│   │   └── articles/DataPanel.jsx   # 文章数据面板（图表占位）
+│   │   └── articles/
+│   │       ├── Chart.jsx            # ECharts 通用封装（全站唯一入口）
+│   │       ├── DataPanel.jsx        # 文章数据面板
+│   │       └── EducationChart.jsx   # 学历排位交互图（七普数据）
+│   ├── data/census2020.js # 七普表4-1校准数据（含来源与口径注释）
 │   ├── tools/registry.js  # 工具注册表（新增工具 = 加一条）
 │   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
