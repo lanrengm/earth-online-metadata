@@ -138,6 +138,8 @@ export default function EducationChart() {
       },
       series,
     };
+    // theme 仅用于主题切换时重算 CSS 变量色值，非 ECharts 数据依赖
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ageIdx, lvIdx, theme]);
 
   const below = censusAgeGroups[ageIdx].shares.slice(0, lvIdx).reduce((a, b) => a + b, 0);

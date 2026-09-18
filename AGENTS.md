@@ -87,13 +87,20 @@
 │   ├── components/
 │   │   ├── AppNav.astro   # 顶部导航（含主题循环切换）
 │   │   ├── Footer.astro   # 页脚
-│   │   ├── tools/ToolGrid.jsx       # 工具网格（搜索 + 卡片，React 岛屿）
-│   │   ├── tools/LifeQuestTree.jsx  # 人生主线任务板（首个工具）
+│   │   ├── tools/
+│   │   │   ├── ToolGrid.jsx         # 工具网格（搜索 + 卡片，React 岛屿）
+│   │   │   └── LifeQuestTree.jsx    # 人生主线任务板（首个工具）
 │   │   └── articles/
 │   │       ├── Chart.jsx            # ECharts 通用封装（全站唯一入口）
 │   │       ├── DataPanel.jsx        # 文章数据面板
-│   │       └── EducationChart.jsx   # 学历排位交互图（七普数据）
-│   ├── data/census2020.js # 七普表4-1校准数据（含来源与口径注释）
+│   │       ├── EducationChart.jsx   # 学历排位交互图（七普数据）
+│   │       ├── EducationTrend.jsx   # 高等教育毛入学率趋势（2012-2024）
+│   │       └── ProjectionChart.jsx  # 2030 排位推算（年份滑块）
+│   ├── data/
+│   │   ├── census2020SingleAge.json # 七普表4-1单岁基线（模型输入）
+│   │   ├── educationProjection.json # 队列外推模型输出（2020-2030）
+│   │   ├── census2020.js            # 七普校准数据（含来源与口径注释）
+│   │   └── eduTrends.js             # 教育部毛入学率年度序列
 │   ├── tools/registry.js  # 工具注册表（新增工具 = 加一条）
 │   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
@@ -105,7 +112,9 @@
 │       ├── articles/index.astro   # 文章列表
 │       ├── articles/[...slug].astro # 文章详情（MDX 渲染 + 排版）
 │       ├── privacy.astro / terms.astro
-├── public/                # 静态资源（随构建进 dist）
+├── public/                # 静态资源（随构建进 dist；data/census2020/ 存官方数据原文件）
+├── scripts/
+│   └── build-education-projection.mjs # 队列外推模型（生成 educationProjection.json，可复现）
 ├── tools/
 │   ├── dev.cmd            # 发布垫片：tools\dev release
 │   └── dev/main.dart      # 发布脚本（零依赖 Dart，直接执行，无 exe）
