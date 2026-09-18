@@ -22,6 +22,13 @@ export default tseslint.config(
     },
   },
   {
+    // Node 脚本（官方数据原文件获取、模型构建等）
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
+  {
     // Node 脚本（APK 汇率抓取，禁改区文件，仅补运行环境 globals）
     files: ['update_ledger_rates.js'],
     languageOptions: {

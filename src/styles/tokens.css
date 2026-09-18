@@ -2,6 +2,17 @@
    EARTH ONLINE — M3 设计令牌（对齐 Flutter es_theme）
    色板由品牌 seed #00897B（翠微森林）派生，语义映射自 lib/theme/es_theme.dart
    ========================================================================== */
+
+/* ── 图标字体（自托管子集，Apache 2.0，见 fonts/LICENSE.txt） ──
+   由 scripts/fetch-icon-font.mjs 生成；font-display: block 避免连字大字符闪烁 */
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url('./fonts/material-symbols-rounded.subset.woff2') format('woff2');
+}
+
 :root {
   /* ── 品牌 / 主色 ── */
   --seed: #00897b;
