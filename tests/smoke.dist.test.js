@@ -18,6 +18,7 @@ describe.skipIf(!distReady)('dist smoke', () => {
   it('关键路由页面均生成', () => {
     for (const page of [
       'tools/index.html',
+      'tools/life-quest/index.html',
       'articles/index.html',
       'articles/site-relaunch/index.html',
       'privacy/index.html',

@@ -22,6 +22,10 @@
   --outline-variant: #c4c7c5;
   --error: #ba1a1a;
 
+  /* ── 人生主线三系配色（/tools/life-quest/；健康系用 --primary） ── */
+  --branch-wealth: #a96a00;           /* 财富系 · 琥珀 */
+  --branch-emotion: #d64a38;          /* 情感系 · 珊瑚 */
+
   /* ── 形状 / 排版 ── */
   --radius-lg: 12px;                  /* 卡片（es_theme cardTheme） */
   --radius-md: 10px;
@@ -47,6 +51,9 @@
   --outline: #878c8b;
   --outline-variant: #444746;
   --error: #ffb4ab;
+
+  --branch-wealth: #f0b429;
+  --branch-emotion: #ff8a73;
 }
 
 /* ── 基础 Reset ── */

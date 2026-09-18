@@ -86,14 +86,17 @@
 │   ├── components/
 │   │   ├── AppNav.astro   # 顶部导航（含主题循环切换）
 │   │   ├── Footer.astro   # 页脚
-│   │   ├── tools/ToolGrid.jsx     # 工具网格（搜索 + 卡片，React 岛屿）
-│   │   └── articles/DataPanel.jsx # 文章数据面板（图表占位）
+│   │   ├── tools/ToolGrid.jsx       # 工具网格（搜索 + 卡片，React 岛屿）
+│   │   ├── tools/LifeQuestTree.jsx  # 人生主线任务板（首个工具）
+│   │   └── articles/DataPanel.jsx   # 文章数据面板（图表占位）
 │   ├── tools/registry.js  # 工具注册表（新增工具 = 加一条）
+│   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
 │   ├── styles/tokens.css  # M3 设计令牌 + 全局外壳样式（fnos 风格根基）
 │   └── pages/
 │       ├── index.astro            # 主页 = meta 跳转到 /tools/
 │       ├── tools/index.astro      # 工具页（React 岛屿挂载）
+│       ├── tools/life-quest.astro # 人生主线（首个工具，任务板交互）
 │       ├── articles/index.astro   # 文章列表
 │       ├── articles/[...slug].astro # 文章详情（MDX 渲染 + 排版）
 │       ├── privacy.astro / terms.astro

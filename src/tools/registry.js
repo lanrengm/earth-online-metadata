@@ -7,12 +7,11 @@
 //
 // 注意：汇率接口 ledger/ 是 APK 专用，与 web 工具无关，不要注册展示。
 export const tools = [
-  // 示例（首个真实工具上架时替换）：
-  // {
-  //   slug: 'age-battery',
-  //   title: '年龄电量',
-  //   desc: '输入出生日期，看看人生的电量还剩多少',
-  //   icon: 'battery_horiz_075',
-  //   tags: ['人生面板'],
-  // },
+  {
+    slug: 'life-quest',
+    title: '人生主线',
+    desc: '把目标拆成可执行任务，勾选推进你的三系人生进度',
+    icon: 'account_tree',
+    tags: ['人生面板', '目标管理', '任务树'],
+  },
 ];

@@ -1,0 +1,92 @@
+---
+import Base from '../../layouts/Base.astro';
+import LifeQuestTree from '../../components/tools/LifeQuestTree.jsx';
+import { questBranches } from '../../tools/lifeQuestData.js';
+---
+<Base
+  title="人生主线"
+  description="把人生目标拆成可执行任务：健康、财富、情感三系任务板，勾选推进进度，纯本地存储。"
+>
+  <h1 class="page-title">人生主线</h1>
+  <p class="page-sub">把目标拆成可执行任务，点亮属于你的主线任务板</p>
+  <LifeQuestTree client:visible branches={questBranches} />
+</Base>
+
+<style is:global>
+  /* 人生主线任务板（React 岛屿样式，宿主页全局作用域；分支色经 --bcolor 注入） */
+  .lq { display: flex; flex-direction: column; gap: 28px; max-width: 780px; }
+
+  .lq-board {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    background: var(--primary-container); color: var(--on-primary-container);
+    border-radius: var(--radius-lg); padding: 16px 20px;
+  }
+  .lq-board-text { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 200px; }
+  .lq-board-icon { font-size: 28px; }
+  .lq-board h2 { font-size: 17px; font-weight: 700; }
+  .lq-board p { font-size: 13px; opacity: .8; }
+  .lq-board-progress { display: flex; align-items: center; gap: 12px; }
+  .lq-board-count { font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .lq-reset {
+    border: 1px solid color-mix(in srgb, var(--on-primary-container) 30%, transparent);
+    background: transparent; color: var(--on-primary-container);
+    border-radius: 999px; padding: 6px 16px; font-size: 13px;
+    cursor: pointer; font-family: var(--font-body);
+    transition: border-color .15s ease;
+  }
+  .lq-reset:hover { border-color: var(--on-primary-container); }
+
+  .lq-branch { display: flex; flex-direction: column; gap: 16px; }
+  .lq-branch-head {
+    display: grid; grid-template-columns: auto auto 1fr auto; align-items: center;
+    gap: 8px 10px;
+  }
+  .lq-branch-head > .mi { color: var(--bcolor); font-size: 22px; }
+  .lq-branch-head h3 { font-size: 17px; font-weight: 700; font-family: var(--font-title); }
+  .lq-branch-count { font-size: 13px; color: var(--on-surface-variant); font-variant-numeric: tabular-nums; }
+  .lq-branch-head .lq-track { grid-column: 1 / -1; }
+
+  .lq-track { height: 6px; border-radius: 999px; background: var(--surface-container-high); overflow: hidden; }
+  .lq-track-lg { height: 8px; width: 160px; }
+  .lq-fill { height: 100%; border-radius: 999px; background: var(--bcolor, var(--primary)); transition: width .2s ease; }
+  .lq-fill-primary { background: var(--primary); }
+
+  .lq-domain { display: flex; flex-direction: column; gap: 8px; }
+  .lq-domain-name {
+    font-size: 13px; font-weight: 600; color: var(--on-surface-variant);
+    padding-left: 2px; position: relative;
+  }
+  .lq-domain-name::before {
+    content: ''; position: absolute; left: -14px; top: 50%;
+    width: 8px; height: 2px; background: var(--bcolor); border-radius: 2px;
+  }
+  .lq-tasks { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+
+  .lq-task {
+    display: flex; align-items: flex-start; gap: 12px; text-align: left;
+    background: var(--surface-container-low); color: var(--on-surface);
+    border: 1px solid var(--outline-variant); border-radius: var(--radius-lg);
+    padding: 14px 16px; cursor: pointer; font-family: var(--font-body);
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .lq-task:hover { border-color: var(--bcolor); box-shadow: 0 4px 16px rgba(0, 137, 123, .10); }
+  .lq-check {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 8px;
+    border: 2px solid var(--outline); display: flex; align-items: center; justify-content: center;
+    transition: background-color .15s ease, border-color .15s ease;
+  }
+  .lq-check .mi { font-size: 16px; color: var(--on-primary); visibility: hidden; }
+  .lq-task-body { display: flex; flex-direction: column; gap: 2px; }
+  .lq-task-body strong { font-size: 15px; font-weight: 700; }
+  .lq-task-body small { font-size: 13px; color: var(--on-surface-variant); line-height: 1.5; }
+
+  .lq-task.is-done .lq-check { background: var(--bcolor); border-color: var(--bcolor); }
+  .lq-task.is-done .lq-check .mi { visibility: visible; }
+  .lq-task.is-done .lq-task-body strong { color: var(--on-surface-variant); text-decoration: line-through; }
+
+  @media (max-width: 720px) {
+    .lq-board-progress { width: 100%; justify-content: space-between; }
+    .lq-track-lg { flex: 1; width: auto; }
+    .lq-domain-name::before { display: none; }
+  }
+</style>
