@@ -87,11 +87,10 @@ a:hover { text-decoration: underline; }
 
 .app-main { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px 24px 64px; }
 
-/* ── 顶部导航（仿 M3 AppBar：居中标题、无染色） ── */
+/* ── 顶部导航（fnos：无底边线，纯色阶过渡；标题左置为 web 站点形态） ── */
 .app-nav {
   position: sticky; top: 0; z-index: 10;
   background: var(--surface);
-  border-bottom: 1px solid var(--outline-variant);
 }
 .app-nav-inner {
   max-width: 1120px; margin: 0 auto; padding: 0 24px;
@@ -101,32 +100,32 @@ a:hover { text-decoration: underline; }
 .app-nav-brand:hover { text-decoration: none; }
 .app-nav-links { display: flex; gap: 24px; }
 .app-nav-links a { color: var(--on-surface-variant); font-weight: 500; font-size: 15px; }
-.app-nav-links a.router-link-active { color: var(--primary); font-weight: 600; }
+/* fnos：导航选中态黑白（onSurface），未选中灰；品牌色只留给 hover */
+.app-nav-links a.active { color: var(--on-surface); font-weight: 600; }
 .app-nav-links a:hover { text-decoration: none; color: var(--primary); }
 
-/* ── 卡片（无阴影纯白圆角块，对齐 M3 cardTheme） ── */
+/* ── 卡片（fnos：无边框无阴影，纯色阶分层——页底 surface → 卡片 containerLow） ── */
 .app-card {
   background: var(--surface-container-low);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-none);
-  border: 1px solid var(--outline-variant);
 }
 
-/* ── FilledButton（对齐 M3 FilledButton） ── */
+/* ── FilledButton（fnos：圆角 12 非胶囊、大密度、底色 primary） ── */
 .app-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   background: var(--primary); color: var(--on-primary);
-  border: none; border-radius: 999px;
-  padding: 12px 24px; font-size: 15px; font-weight: 600;
+  border: none; border-radius: var(--radius-lg);
+  padding: 14px 28px; font-size: 16px; font-weight: 600;
   cursor: pointer; font-family: var(--font-body);
   transition: filter .15s ease;
 }
 .app-btn:hover { filter: brightness(1.05); text-decoration: none; }
+/* 次级按钮：填充灰阶（containerHighest），非描边 */
 .app-btn.secondary { background: var(--surface-container-high); color: var(--primary); }
 
-/* ── 页脚 ── */
+/* ── 页脚（fnos：无边线，靠色阶过渡） ── */
 .app-footer {
-  border-top: 1px solid var(--outline-variant);
   padding: 24px; text-align: center;
   color: var(--on-surface-variant); font-size: 14px;
 }

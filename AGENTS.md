@@ -44,6 +44,8 @@
 - **路由**：`/` 手写 meta 跳转到 `/tools/`（Astro redirects 不带 base，勿改回）；`/tools/` 工具页、`/articles/` 博客、`/privacy/`、`/terms/`；`trailingSlash: 'always'`。
 - **主题**：亮/暗/跟随系统三态循环，偏好存 `localStorage('eo_theme')`；首屏防闪脚本在 `Base.astro` head 内联，切换逻辑在 `AppNav.astro`。
 - **组件样式作用域**：`.astro` 页面用 scoped `<style>`；React 岛屿的样式用宿主页 `<style is:global>`（scoped 选择器打不进岛屿 DOM）。
+- **fnos 视觉**：卡片/面级无边框、纯色阶分层；按钮圆角 12 非胶囊；填充式输入框。详见 docs/架构决策.md #13。
+- **图标**：自托管 Material Symbols 子集；加图标 = 名字追加进 `scripts/fetch-icon-font.mjs` 的 `ICON_NAMES` 再跑该脚本。详见 docs/架构决策.md #12。
 
 ## 内容创作
 

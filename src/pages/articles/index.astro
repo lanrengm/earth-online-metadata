@@ -30,8 +30,8 @@ const articles = (await getCollection('articles')).sort(
 
 <style>
   .article-list { display: flex; flex-direction: column; gap: 16px; max-width: 780px; }
-  .article-card { display: block; padding: 20px 24px; transition: border-color .15s ease, box-shadow .15s ease; }
-  .article-card:hover { text-decoration: none; border-color: var(--primary); box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }
+  .article-card { display: block; padding: 20px 24px; transition: box-shadow .15s ease; }
+  .article-card:hover { text-decoration: none; box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }
   .article-card h2 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
   .article-card p { font-size: 14px; color: var(--on-surface-variant); line-height: 1.6; margin-bottom: 12px; }
   .article-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--on-surface-variant); }

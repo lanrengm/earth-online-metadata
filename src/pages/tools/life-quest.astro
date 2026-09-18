@@ -28,13 +28,14 @@ import { questBranches } from '../../tools/lifeQuestData.js';
   .lq-board-progress { display: flex; align-items: center; gap: 12px; }
   .lq-board-count { font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
   .lq-reset {
-    border: 1px solid color-mix(in srgb, var(--on-primary-container) 30%, transparent);
-    background: transparent; color: var(--on-primary-container);
-    border-radius: 999px; padding: 6px 16px; font-size: 13px;
+    border: none;
+    background: color-mix(in srgb, var(--on-primary-container) 14%, transparent);
+    color: var(--on-primary-container);
+    border-radius: var(--radius-lg); padding: 8px 18px; font-size: 13px;
     cursor: pointer; font-family: var(--font-body);
-    transition: border-color .15s ease;
+    transition: filter .15s ease;
   }
-  .lq-reset:hover { border-color: var(--on-primary-container); }
+  .lq-reset:hover { filter: brightness(1.05); }
 
   .lq-branch { display: flex; flex-direction: column; gap: 16px; }
   .lq-branch-head {
@@ -65,11 +66,11 @@ import { questBranches } from '../../tools/lifeQuestData.js';
   .lq-task {
     display: flex; align-items: flex-start; gap: 12px; text-align: left;
     background: var(--surface-container-low); color: var(--on-surface);
-    border: 1px solid var(--outline-variant); border-radius: var(--radius-lg);
+    border-radius: var(--radius-lg);
     padding: 14px 16px; cursor: pointer; font-family: var(--font-body);
-    transition: border-color .15s ease, box-shadow .15s ease;
+    transition: box-shadow .15s ease;
   }
-  .lq-task:hover { border-color: var(--bcolor); box-shadow: 0 4px 16px rgba(0, 137, 123, .10); }
+  .lq-task:hover { box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }
   .lq-check {
     flex-shrink: 0; width: 22px; height: 22px; border-radius: 8px;
     border: 2px solid var(--outline); display: flex; align-items: center; justify-content: center;
