@@ -1,5 +1,11 @@
 # Earth Online 服务端开发注意事项
 
+## 开发模式（AI-first）
+
+- 本项目全部代码由 AI 编写，用户只做验收；**约定以本文件与 `docs/架构决策.md` 为准**，不要凭常识另起炉灶。
+- 每次代码改动完成后必须自检：**`npm run check && npm run build` 全绿才算完成**（CI 会在 dev 上跑同样检查，见 `.github/workflows/ci.yml`）。
+- 涉及技术栈、结构、流程变化时，同步更新本文件与 `docs/架构决策.md`，防止多会话漂移。
+
 ## 原则
 
 - 根目录的 assets 目录给 README.md 使用，用于给看仓库的人提供图片演示，不要和 web 网站的 assets 混淆。
@@ -46,11 +52,14 @@
 ```
 ├── .github/workflows/
 │   ├── update_rates.yml   # 汇率定时更新（APK 接口）
-│   └── deploy.yml         # 官网构建部署到 gh-pages（push main 触发）
+│   ├── deploy.yml         # 官网构建部署到 gh-pages（push main 触发）
+│   └── ci.yml             # dev 守门：check + build（AI-first 自检回路）
 ├── astro.config.mjs       # Astro 配置（site/base/trailingSlash/集成）
-├── package.json           # 依赖见「技术栈」节
+├── package.json           # 依赖见「技术栈」节；scripts: dev/build/preview/check
 ├── tsconfig.json          # extends astro/tsconfigs/base
-├── docs/升级计划.md        # 改版计划与验收标准（工具页对标 it-tools，博客对标 distill.pub）
+├── docs/
+│   ├── 升级计划.md         # 改版计划与验收标准（工具页对标 it-tools，博客对标 distill.pub）
+│   └── 架构决策.md         # 架构决策记录（防漂移；改架构必先改此文档）
 ├── ledger/v1/exchange_rates.json  # 汇率数据（APK 接口）
 ├── update_ledger_rates.js         # 汇率抓取脚本
 ├── src/

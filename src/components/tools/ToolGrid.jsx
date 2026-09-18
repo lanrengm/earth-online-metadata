@@ -1,8 +1,21 @@
 import { useState } from 'react';
 
 /**
+ * 工具卡片类型（与 src/tools/registry.js 的条目一致）
+ *
+ * @typedef {Object} Tool
+ * @property {string} slug   工具路径（/tools/<slug>/）
+ * @property {string} title  名称
+ * @property {string} desc   一句话描述
+ * @property {string} [icon] Material Symbols 图标名
+ * @property {string[]} [tags] 搜索标签
+ */
+
+/**
  * 工具网格（对齐 it-tools 首屏：大搜索框 + 分类网格卡片）
  * tools 为空注册表时显示空状态，首个工具上架后搜索与卡片自动生效。
+ *
+ * @param {{ tools?: Tool[], base?: string }} props
  */
 export default function ToolGrid({ tools = [], base = '' }) {
   const [query, setQuery] = useState('');
