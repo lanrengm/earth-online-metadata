@@ -25,9 +25,15 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      # AI-first 守门：类型/模板检查 + 构建，dev 上先拦住错误，不带进 release
+      # AI-first 守门：静态分析 + 类型检查 + 构建 + 测试（含 dist 冒烟），dev 上先拦住错误
+      - name: Lint
+        run: npm run lint
+
       - name: Check
         run: npm run check
 
       - name: Build
         run: npm run build
+
+      - name: Test
+        run: npm run test

@@ -1,10 +1,23 @@
 # Earth Online 服务端开发注意事项
 
-## 开发模式（AI-first）
+## 开发模式：AI-first + 文档驱动 + 自动化验证
 
-- 本项目全部代码由 AI 编写，用户只做验收；**约定以本文件与 `docs/架构决策.md` 为准**，不要凭常识另起炉灶。
-- 每次代码改动完成后必须自检：**`npm run check && npm run build` 全绿才算完成**（CI 会在 dev 上跑同样检查，见 `.github/workflows/ci.yml`）。
-- 涉及技术栈、结构、流程变化时，同步更新本文件与 `docs/架构决策.md`，防止多会话漂移。
+**三支柱缺一不可**：
+
+1. **AI-first**：全部代码由 AI 编写，用户只做验收；扩展点一律做成「填空式」（发文章 = 加 .mdx，上工具 = 注册表加一条），降低 AI 理解成本。
+2. **文档驱动**：动手前先读本文件与 `docs/架构决策.md`；**改架构必先改文档**，文档与代码同步更新，防止多会话漂移。
+3. **自动化验证**：每次改动完成必须跑 **`npm run verify`**（lint + check + build + test）全绿才算完成；CI 在 dev 上跑同样流水线守门（`.github/workflows/ci.yml`）。
+
+验证分层：
+
+| 层 | 命令 | 拦什么 |
+|---|---|---|
+| 代码分析 | `npm run lint`（ESLint：astro + react-hooks + ts） | hooks 误用、未用变量、可疑模式 |
+| 类型检查 | `npm run check`（astro check） | .astro/.ts/.jsx 类型错误 |
+| 构建 | `npm run build` | 路由/MDX/frontmatter schema（zod）错误 |
+| 测试 | `npm run test`（Vitest，`tests/`） | 管线守卫（注册表/文章 frontmatter）+ dist 冒烟（关键路由、base 前缀跳转） |
+
+新会话工作流：读文档 → 改代码 → `npm run verify` 全绿 → 同步更新相关文档 → 提交。
 
 ## 原则
 
@@ -21,6 +34,8 @@
 | @astrojs/mdx | 8.0.1 | 博客文章格式 |
 | Node | 24 | CI 与本地 |
 | 样式 | — | tokens.css 设计令牌 + 原生 CSS，**不用 Tailwind** |
+| ESLint | 9（flat config） | 代码分析：astro + typescript-eslint + react-hooks 插件 |
+| Vitest | 4 | 自动化测试：单元 + 管线守卫 + dist 冒烟（tests/） |
 
 关键约定：
 
@@ -53,10 +68,12 @@
 ├── .github/workflows/
 │   ├── update_rates.yml   # 汇率定时更新（APK 接口）
 │   ├── deploy.yml         # 官网构建部署到 gh-pages（push main 触发）
-│   └── ci.yml             # dev 守门：check + build（AI-first 自检回路）
+│   └── ci.yml             # dev 守门：lint + check + build + test（自动化验证流水线）
 ├── astro.config.mjs       # Astro 配置（site/base/trailingSlash/集成）
-├── package.json           # 依赖见「技术栈」节；scripts: dev/build/preview/check
+├── eslint.config.js       # ESLint flat config（astro/ts/react-hooks）
+├── package.json           # 依赖见「技术栈」节；scripts: dev/build/preview/check/lint/test/verify
 ├── tsconfig.json          # extends astro/tsconfigs/base
+├── tests/                 # Vitest：paths/registry/content 单测 + smoke.dist 冒烟（需先 build）
 ├── docs/
 │   ├── 升级计划.md         # 改版计划与验收标准（工具页对标 it-tools，博客对标 distill.pub）
 │   └── 架构决策.md         # 架构决策记录（防漂移；改架构必先改此文档）
