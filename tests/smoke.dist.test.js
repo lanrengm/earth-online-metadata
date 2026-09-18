@@ -29,6 +29,10 @@ describe.skipIf(!distReady)('dist smoke', () => {
     }
   });
 
+  it('文章引用的官方数据原文件随构建分发', () => {
+    expect(existsSync(join(dist, 'data', 'census2020', 'A0401.xls'))).toBe(true);
+  });
+
   it('页面内链接带 base 前缀（抽查工具页）', () => {
     const html = readFileSync(join(dist, 'tools/index.html'), 'utf-8');
     expect(html).toContain('/earth-online-metadata/articles/');
