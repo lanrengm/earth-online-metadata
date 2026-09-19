@@ -32,8 +32,7 @@ const articles = isArticlesArea
 <aside class="tool-sidebar" id="tool-sidebar" aria-label="侧边导航">
   <div class="ts-inner">
     <a href={withBase('/tools/')} class="ts-brand">
-      <span class="ts-brand-name">Earth Online</span>
-      <span class="ts-brand-sub">人生面板 · 在线工具</span>
+      <span class="ts-brand-name">17 号玩家</span>
     </a>
 
     {isArticlesArea ? (
@@ -137,7 +136,7 @@ const articles = isArticlesArea
     background: var(--surface-container-low);
   }
 
-  /* 品牌色块（fnos：纯色阶，无描边无渐变） */
+  /* 玩家名牌（fnos：纯色阶，无描边无渐变） */
   .ts-brand {
     flex-shrink: 0;
     display: flex; flex-direction: column; gap: 4px;
@@ -147,7 +146,6 @@ const articles = isArticlesArea
   }
   .ts-brand:hover { text-decoration: none; }
   .ts-brand-name { font-family: var(--font-title); font-size: 22px; font-weight: 800; letter-spacing: .5px; }
-  .ts-brand-sub { font-size: 12.5px; opacity: .85; }
 
   .ts-nav { flex: 1; overflow-y: auto; padding: 12px 10px 16px; display: flex; flex-direction: column; gap: 4px; }
   .ts-item {
