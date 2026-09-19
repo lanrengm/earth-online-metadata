@@ -9,6 +9,8 @@ const articles = defineCollection({
     description: z.string(),
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),
+    // 列表条目配图（静态截图放 public/ 下，填根路径如 /images/articles/xxx.png）；缺省时列表显示品牌色块占位
+    image: z.string().optional(),
   }),
 });
 
