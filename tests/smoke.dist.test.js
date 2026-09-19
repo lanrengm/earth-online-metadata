@@ -19,6 +19,7 @@ describe.skipIf(!distReady)('dist smoke', () => {
     for (const page of [
       'tools/index.html',
       'tools/life-quest/index.html',
+      'tools/career-earnings/index.html',
       'articles/index.html',
       'articles/education-percentile/index.html',
       'privacy/index.html',

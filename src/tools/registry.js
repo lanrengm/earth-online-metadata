@@ -15,4 +15,12 @@ export const tools = [
     tags: ['人生面板', '目标管理', '任务树'],
     category: '个人成长',
   },
+  {
+    slug: 'career-earnings',
+    title: '生涯收入',
+    desc: '输入年龄与月薪，计算到退休还能赚多少',
+    icon: 'payments',
+    tags: ['收入', '工资', '退休', '计算器'],
+    category: '个人成长',
+  },
 ];

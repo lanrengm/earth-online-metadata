@@ -92,7 +92,8 @@
 │   │   ├── tools/
 │   │   │   ├── ToolGrid.jsx         # 工具网格（卡片，受全局搜索事件驱动）
 │   │   │   ├── GlobalSearch.jsx     # 顶栏全局搜索（Ctrl+K、下拉直达、首页联动）
-│   │   │   └── LifeQuestTree.jsx    # 人生主线任务板（首个工具）
+│   │   │   ├── LifeQuestTree.jsx    # 人生主线任务板（首个工具）
+│   │   │   └── EarningsCalculator.jsx # 生涯收入计算器（工具二，静态口径，决策 #15）
 │   │   └── articles/
 │   │       ├── Chart.jsx            # ECharts 通用封装（全站唯一入口）
 │   │       ├── DataPanel.jsx        # 文章数据面板
