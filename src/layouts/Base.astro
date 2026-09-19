@@ -1,5 +1,6 @@
 ---
 import AppNav from '../components/AppNav.astro';
+import ToolSidebar from '../components/ToolSidebar.astro';
 import Footer from '../components/Footer.astro';
 import iconFontUrl from '../styles/fonts/material-symbols-rounded.subset.woff2?url';
 import '../styles/tokens.css';
@@ -10,6 +11,11 @@ interface Props {
 }
 
 const { title, description = '人生面板（Earth Online）——全本地运行的个人成长与记账工具，附知识博客与在线工具。' } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const current = base && Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname;
 ---
 <!doctype html>
 <html lang="zh">
@@ -26,16 +32,25 @@ const { title, description = '人生面板（Earth Online）——全本地运�
         const m = localStorage.getItem('eo_theme');
         const dark = m === 'dark' || (m !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        if (
+          localStorage.getItem('eo_sidebar') === '1'
+          && matchMedia('(min-width: 1024px)').matches
+        ) {
+          document.documentElement.setAttribute('data-sidebar', 'open');
+        }
       })();
     </script>
   </head>
   <body>
     <div class="app-shell">
-      <AppNav />
-      <main class="app-main">
-        <slot />
-      </main>
-      <Footer />
+      <ToolSidebar current={current} />
+      <div class="app-col">
+        <AppNav current={current} />
+        <main class="app-main">
+          <slot />
+        </main>
+        <Footer />
+      </div>
     </div>
   </body>
 </html>

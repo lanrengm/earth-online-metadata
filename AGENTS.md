@@ -50,7 +50,7 @@
 ## 内容创作
 
 - **发文章**：在 `src/content/articles/` 加一个 `.mdx`（frontmatter：title/description/date/tags），列表页与详情页自动生成；内嵌多媒体组件从 `src/components/articles/` import（如 `DataPanel`）。
-- **上工具**：实现 React 组件 + `src/pages/tools/<slug>.astro` 页面，然后在 `src/tools/registry.js` 注册一条，搜索与卡片自动生效。
+- **上工具**：实现 React 组件 + `src/pages/tools/<slug>.astro` 页面，然后在 `src/tools/registry.js` 注册一条（含 `category` 侧边栏分组名），搜索、卡片与侧边栏自动生效。
 
 ## 发布
 
@@ -85,12 +85,14 @@
 ├── src/
 │   ├── content.config.ts  # 文章集合 schema（title/description/date/tags）
 │   ├── content/articles/  # 博客文章：每篇一个 .mdx
-│   ├── layouts/Base.astro # 全站外壳（导航 + 页脚 + 主题防闪内联脚本）
+│   ├── layouts/Base.astro # 全站外壳（两栏骨架：全高侧栏 + 右栏顶栏/main/页脚 + 主题防闪）
 │   ├── components/
-│   │   ├── AppNav.astro   # 顶部导航（含主题循环切换）
+│   │   ├── AppNav.astro   # 右栏顶栏（汉堡 + GlobalSearch 岛屿 + 全站入口 + 主题切换）
+│   │   ├── ToolSidebar.astro # 全高左轨道（品牌色块 + category 分组；宽屏推挤/窄屏遮罩，决策 #14）
 │   │   ├── Footer.astro   # 页脚
 │   │   ├── tools/
-│   │   │   ├── ToolGrid.jsx         # 工具网格（搜索 + 卡片，React 岛屿）
+│   │   │   ├── ToolGrid.jsx         # 工具网格（卡片，受全局搜索事件驱动）
+│   │   │   ├── GlobalSearch.jsx     # 顶栏全局搜索（Ctrl+K、下拉直达、首页联动）
 │   │   │   └── LifeQuestTree.jsx    # 人生主线任务板（首个工具）
 │   │   └── articles/
 │   │       ├── Chart.jsx            # ECharts 通用封装（全站唯一入口）
@@ -103,7 +105,7 @@
 │   │   ├── educationProjection.json # 队列外推模型输出（2020-2030）
 │   │   ├── census2020.js            # 七普校准数据（含来源与口径注释）
 │   │   └── eduTrends.js             # 教育部毛入学率年度序列
-│   ├── tools/registry.js  # 工具注册表（新增工具 = 加一条）
+│   ├── tools/registry.js  # 工具注册表（新增工具 = 加一条；category 驱动侧边栏分组）
 │   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
 │   ├── styles/tokens.css  # M3 设计令牌 + 全局外壳样式（fnos 风格根基）

@@ -1,25 +1,46 @@
 ---
-// 顶部导航：品牌 + 工具/文章入口 + 主题循环切换（亮→暗→跟随系统）
+// 右栏顶栏：汉堡（全高侧栏开关）+ 全局搜索 + 工具/文章入口 + 主题循环切换
+import GlobalSearch from './tools/GlobalSearch.jsx';
+import { tools } from '../tools/registry.js';
 import { withBase } from '../lib/paths.js';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const current = base && Astro.url.pathname.startsWith(base)
-  ? Astro.url.pathname.slice(base.length)
-  : Astro.url.pathname;
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+
+const isToolsHome = current === '/tools/' || current === '/tools';
 
 const links = [
   { href: '/tools/', label: '在线工具', icon: 'widgets' },
   { href: '/articles/', label: '文章', icon: 'article' },
 ];
 ---
+
 <header class="app-nav">
   <div class="app-nav-inner">
-    <a href={withBase('/tools/')} class="app-nav-brand">Earth Online</a>
+    <div class="app-nav-left">
+      <button
+        class="sidebar-btn"
+        id="sidebar-toggle"
+        type="button"
+        aria-controls="tool-sidebar"
+        aria-label="切换侧边栏"
+      >
+        <span class="mi" aria-hidden="true">menu</span>
+      </button>
+      <GlobalSearch
+        client:load
+        tools={tools}
+        base={withBase('')}
+        onHome={isToolsHome}
+      />
+    </div>
     <nav class="app-nav-right">
       <nav class="app-nav-links">
         {links.map((l) => (
           <a href={withBase(l.href)} class:list={[{ active: current.startsWith(l.href) }]}>
-            <span class="mi">{l.icon}</span>{l.label}
+            <span class="mi">{l.icon}</span><span class="nav-label">{l.label}</span>
           </a>
         ))}
       </nav>
@@ -32,7 +53,19 @@ const links = [
 </header>
 
 <style>
-  .app-nav-right { display: flex; align-items: center; gap: 20px; }
+  .app-nav-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+  .sidebar-btn {
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: var(--radius-lg);
+    border: none; background: transparent;
+    color: var(--on-surface-variant);
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease;
+  }
+  .sidebar-btn:hover { background: var(--surface-container-high); color: var(--on-surface); }
+
+  .app-nav-right { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
   .app-nav-links a { display: inline-flex; align-items: center; gap: 4px; }
   .app-nav-links .mi { font-size: 18px; }
   .app-nav-links a.active { color: var(--primary); font-weight: 600; }
@@ -46,6 +79,75 @@ const links = [
     transition: border-color .15s ease, color .15s ease;
   }
   .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+  @media (max-width: 640px) {
+    .app-nav-right { gap: 12px; }
+    .nav-label { display: none; }
+    .theme-label { display: none; }
+    .theme-btn { padding: 0 10px; }
+  }
+</style>
+
+<style is:global>
+  /* GlobalSearch 是 React 岛屿，样式必须全局（宿主页作用域打不进岛屿 DOM） */
+  .gs { position: relative; flex: 1; min-width: 0; max-width: 520px; display: flex; align-items: center; }
+  .gs-icon {
+    position: absolute; left: 14px; font-size: 20px;
+    color: var(--on-surface-variant); pointer-events: none;
+  }
+  .gs-input {
+    width: 100%; height: 40px;
+    padding: 0 72px 0 42px;
+    border: 2px solid transparent; border-radius: var(--radius-lg);
+    background: var(--surface-container-high); color: var(--on-surface);
+    font-size: 14px; font-family: var(--font-body);
+    outline: none; transition: border-color .15s ease;
+  }
+  .gs-input:focus { border-color: var(--primary); }
+  .gs-input::-webkit-search-cancel-button { display: none; }
+  .gs-kbd {
+    position: absolute; right: 10px;
+    font-family: var(--font-body); font-size: 11px;
+    color: var(--on-surface-variant);
+    background: var(--surface-container-low);
+    border-radius: 6px; padding: 2px 7px;
+    pointer-events: none;
+  }
+
+  .gs-panel {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    max-height: 60vh; overflow-y: auto;
+    background: var(--surface-container-low);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .18);
+    padding: 6px; z-index: 30;
+  }
+  .gs-item {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; padding: 9px 12px;
+    border: none; border-radius: var(--radius-md);
+    background: transparent; color: var(--on-surface);
+    cursor: pointer; text-align: left; font-family: var(--font-body);
+  }
+  .gs-item.is-active, .gs-item:hover { background: var(--surface-container-high); }
+  .gs-item-icon {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px;
+    background: var(--primary-container); color: var(--on-primary-container);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gs-item-icon .mi { font-size: 19px; }
+  .gs-item-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .gs-item-text strong { font-size: 14px; font-weight: 600; }
+  .gs-item-text small {
+    font-size: 12px; color: var(--on-surface-variant);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .gs-empty { padding: 18px 14px; font-size: 13px; color: var(--on-surface-variant); text-align: center; }
+
+  @media (max-width: 640px) {
+    .gs-kbd { display: none; }
+    .gs-input { padding-right: 14px; }
+  }
 </style>
 
 <script>

@@ -11,17 +11,8 @@ import { withBase } from '../../lib/paths.js';
 </Base>
 
 <style is:global>
-  /* 工具区样式作用于 React 岛屿，需全局（对齐 it-tools 首屏：居中大搜索 + 网格卡片；fnos：填充式输入、卡片无边框） */
+  /* 工具区样式作用于 React 岛屿，需全局（fnos：卡片无边框；搜索已上移至顶栏 GlobalSearch） */
   .tool-area { display: flex; flex-direction: column; gap: 24px; }
-  .tool-search {
-    width: 100%; max-width: 520px; margin: 0 auto;
-    height: 48px; padding: 0 20px;
-    border: 2px solid transparent; border-radius: var(--radius-lg);
-    background: var(--surface-container-high); color: var(--on-surface);
-    font-size: 15px; font-family: var(--font-body);
-    outline: none; transition: border-color .15s ease;
-  }
-  .tool-search:focus { border-color: var(--primary); }
   .tool-empty { text-align: center; color: var(--on-surface-variant); padding: 48px 0; }
   .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
   .tool-card { display: block; padding: 20px; transition: box-shadow .15s ease; }

@@ -82,22 +82,21 @@ html, body {
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* ── 应用外壳 ── */
-.app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+/* ── 应用外壳：全高左轨道 + 右栏（顶栏/main/页脚），见 ToolSidebar 决策 #14 ── */
+.app-shell { min-height: 100vh; }
+.app-col { display: flex; flex-direction: column; min-height: 100vh; }
 
 .app-main { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px 24px 64px; }
 
-/* ── 顶部导航（fnos：无底边线，纯色阶过渡；标题左置为 web 站点形态） ── */
+/* ── 右栏顶栏（fnos：无底边线，色阶过渡；宽度跟随右栏而非 1120 居中） ── */
 .app-nav {
   position: sticky; top: 0; z-index: 10;
   background: var(--surface);
 }
 .app-nav-inner {
-  max-width: 1120px; margin: 0 auto; padding: 0 24px;
-  height: 56px; display: flex; align-items: center; justify-content: space-between;
+  width: 100%; margin: 0 auto; padding: 0 20px;
+  height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.app-nav-brand { font-family: var(--font-title); font-weight: 700; font-size: 18px; color: var(--on-surface); }
-.app-nav-brand:hover { text-decoration: none; }
 .app-nav-links { display: flex; gap: 24px; }
 .app-nav-links a { color: var(--on-surface-variant); font-weight: 500; font-size: 15px; }
 /* fnos：导航选中态黑白（onSurface），未选中灰；品牌色只留给 hover */

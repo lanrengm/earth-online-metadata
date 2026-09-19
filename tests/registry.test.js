@@ -20,6 +20,7 @@ describe('tools registry', () => {
       expect(t.desc.trim().length).toBeGreaterThan(0);
       expect(typeof t.icon === 'string' || t.icon === undefined).toBe(true);
       expect(Array.isArray(t.tags ?? [])).toBe(true);
+      expect(t.category.trim().length).toBeGreaterThan(0);
     }
   });
 });
