@@ -34,7 +34,7 @@ function Pill({ label, options, value, onChange }) {
 }
 
 /**
- * 学历排位交互图（七普数据）：全景 100% 堆叠柱 + 「你在这里」定位针 + 同学历幽灵线。
+ * 学历排位交互图（七普数据）：全景 100% 堆叠柱 + 排位定位线 + 同学历跨年龄组对照线。
  * 纯前端计算，无数据上传。
  */
 export default function EducationChart() {
@@ -68,7 +68,7 @@ export default function EducationChart() {
       color: colors[li],
     }));
 
-    // 「你在这里」：细横线 + 标签（定位在所选列的学历下边界）
+    // 排位定位线：细横线 + 标签（定位在所选列的学历下边界）
     series.push({
       name: 'pin-line',
       type: 'scatter',
@@ -86,7 +86,7 @@ export default function EducationChart() {
           symbolSize: 0,
           label: {
             show: true,
-            formatter: `你在这里 · 超过 ${Math.round(belowOf(ageIdx))}%`,
+            formatter: `排位线 · 高于 ${Math.round(belowOf(ageIdx))}%`,
             position: 'top',
             distance: 8,
             backgroundColor: primary,
@@ -101,7 +101,7 @@ export default function EducationChart() {
       silent: true,
       z: 11,
     });
-    // 幽灵线：同一学历在其它年龄组的位置
+    // 对照线：同一学历在其它年龄组的位置
     series.push({
       name: 'ghost',
       type: 'scatter',
@@ -163,13 +163,13 @@ export default function EducationChart() {
         .eq-readout strong { color: var(--primary); }
       `}</style>
       <Pill label="年龄段" options={censusAgeGroups.map((g) => g.label)} value={ageIdx} onChange={setAgeIdx} />
-      <Pill label="你的学历" options={censusLevels} value={lvIdx} onChange={setLvIdx} />
-      <Chart option={option} height={380} ariaLabel="分年龄段学历分布堆叠图，含你的排位定位" />
+      <Pill label="学历" options={censusLevels} value={lvIdx} onChange={setLvIdx} />
+      <Chart option={option} height={380} ariaLabel="分年龄段学历分布堆叠图，含排位定位线" />
       <p className="eq-readout">
-        在 <strong>{censusAgeGroups[ageIdx].label}</strong> 这一代人中，你的学历高于约{' '}
-        <strong>{Math.round(below)}%</strong> 的同龄人；达到{censusLevels[lvIdx]}及以上的占{' '}
-        {Math.round(atOrAbove)}%。灰色细线是同一学历线在其它年龄组的位置——从右往左看，
-        这就是「学历通胀」本身。
+        <strong>{censusAgeGroups[ageIdx].label}</strong> 组中，低于「{censusLevels[lvIdx]}」的人口约占{' '}
+        <strong>{Math.round(below)}%</strong>（即该学历高于组内约 {Math.round(below)}% 的人口）；
+        该学历及以上占 {Math.round(atOrAbove)}%。灰色横线为同一学历线在其它年龄组的位置，
+        可直接对比各队列的累计占比差异。
       </p>
     </div>
   );

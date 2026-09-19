@@ -58,7 +58,7 @@ export default function EducationTrend() {
               position: 'insideTop',
               color: muted,
               fontSize: 12,
-              formatter: '七普快照 → 此后继续扩张',
+              formatter: '七普基准年 2020 → 2024',
             },
             data: [[{ xAxis: 2020 }, { xAxis: 2024 }]],
           },

@@ -164,25 +164,24 @@ export default function ProjectionChart() {
         ))}
       </div>
       <div className="eq-row">
-        <span className="eq-label">你的学历</span>
+        <span className="eq-label">学历</span>
         {LEVELS.map((l, i) => (
           <button key={l} type="button" className={`eq-pill${i === lvIdx ? ' on' : ''}`} onClick={() => setLvIdx(i)}>
             {l}
           </button>
         ))}
       </div>
-      <Chart option={option} height={380} ariaLabel="各年份分年龄段学历分布推算堆叠图，含你的排位定位" />
+      <Chart option={option} height={380} ariaLabel="各年份分年龄段学历分布堆叠图（2020 实测、2021-2030 推算），含排位定位线" />
       <p className="eq-readout">
-        {isProjected
-          ? '按队列外推模型，'
-          : '七普实测：'}
-        <strong>{year}</strong> 年，<strong>{AGE_GROUPS[ageIdx].label}</strong> 组中你的学历高于约{' '}
-        <strong>{Math.round(below)}%</strong> 的同龄人
+        {isProjected ? '队列外推模型：' : '七普实测：'}
+        <strong>{year}</strong> 年，<strong>{AGE_GROUPS[ageIdx].label}</strong> 组中低于「
+        {LEVELS[lvIdx]}」的人口约占 <strong>{Math.round(below)}%</strong>
         {isProjected && below < below2020 - 0.05 && (
           <>
-            {' '}（2020 年实测为 {Math.round(below2020)}%，六年下滑 <strong>{Math.round(below2020 - below)}</strong> 个百分点）
+            {' '}（2020 年实测为 {Math.round(below2020)}%，累计下降 <strong>{Math.round(below2020 - below)}</strong> 个百分点）
           </>
-        )}。
+        )}
+        。
       </p>
     </div>
   );
