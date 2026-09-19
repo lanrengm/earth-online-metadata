@@ -1,7 +1,6 @@
 ---
 import AppNav from '../components/AppNav.astro';
 import ToolSidebar from '../components/ToolSidebar.astro';
-import Footer from '../components/Footer.astro';
 import iconFontUrl from '../styles/fonts/material-symbols-rounded.subset.woff2?url';
 import '../styles/tokens.css';
 
@@ -49,7 +48,6 @@ const current = base && Astro.url.pathname.startsWith(base)
         <main class="app-main">
           <slot />
         </main>
-        <Footer />
       </div>
     </div>
   </body>

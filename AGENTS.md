@@ -85,11 +85,10 @@
 ├── src/
 │   ├── content.config.ts  # 文章集合 schema（title/description/date/tags）
 │   ├── content/articles/  # 博客文章：每篇一个 .mdx
-│   ├── layouts/Base.astro # 全站外壳（两栏骨架：全高侧栏 + 右栏顶栏/main/页脚 + 主题防闪）
+│   ├── layouts/Base.astro # 全站外壳（真两栏 flex：左轨道 + 右栏独立滚动 + 主题防闪）
 │   ├── components/
 │   │   ├── AppNav.astro   # 右栏顶栏（汉堡 + GlobalSearch 岛屿 + 全站入口 + 主题切换）
-│   │   ├── ToolSidebar.astro # 全高左轨道（品牌色块 + category 分组；宽屏推挤/窄屏遮罩，决策 #14）
-│   │   ├── Footer.astro   # 页脚
+│   │   ├── ToolSidebar.astro # 左轨道（品牌块+工具/文章替换式导航+底部版权；决策 #14）
 │   │   ├── tools/
 │   │   │   ├── ToolGrid.jsx         # 工具网格（卡片，受全局搜索事件驱动）
 │   │   │   ├── GlobalSearch.jsx     # 顶栏全局搜索（Ctrl+K、下拉直达、首页联动）

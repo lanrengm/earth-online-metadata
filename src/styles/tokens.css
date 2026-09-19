@@ -82,13 +82,17 @@ html, body {
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* ── 应用外壳：全高左轨道 + 右栏（顶栏/main/页脚），见 ToolSidebar 决策 #14 ── */
-.app-shell { min-height: 100vh; }
-.app-col { display: flex; flex-direction: column; min-height: 100vh; }
+/* ── 应用外壳：真两栏 flex（左轨道 in-flow + 右栏独立滚动），决策 #14 ── */
+.app-shell { display: flex; height: 100vh; overflow: hidden; }
+.app-col {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  height: 100vh; overflow-y: auto;
+}
 
 .app-main { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px 24px 64px; }
 
-/* ── 右栏顶栏（fnos：无底边线，色阶过渡；宽度跟随右栏而非 1120 居中） ── */
+/* ── 右栏顶栏（sticky 于右栏滚动容器内；fnos：无底边线，色阶过渡） ── */
 .app-nav {
   position: sticky; top: 0; z-index: 10;
   background: var(--surface);
@@ -122,14 +126,6 @@ a:hover { text-decoration: underline; }
 .app-btn:hover { filter: brightness(1.05); text-decoration: none; }
 /* 次级按钮：填充灰阶（containerHighest），非描边 */
 .app-btn.secondary { background: var(--surface-container-high); color: var(--primary); }
-
-/* ── 页脚（fnos：无边线，靠色阶过渡） ── */
-.app-footer {
-  padding: 24px; text-align: center;
-  color: var(--on-surface-variant); font-size: 14px;
-}
-.app-footer nav { margin-top: 8px; display: flex; gap: 16px; justify-content: center; }
-.app-footer a { color: var(--on-surface-variant); }
 
 /* ── 页面标题（各页共用） ── */
 .page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
