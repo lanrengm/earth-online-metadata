@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import MentalRotationTest from '../../components/tests/MentalRotationTest.jsx';
+---
+<Base title="心理旋转" description="判断旋转后的字母 R 是同一个还是镜像：经典心理旋转范式，测空间能力。本机计算，零隐私收集。">
+  <h1 class="page-title">心理旋转</h1>
+  <p class="page-sub">右边是左边 R 旋转后的样子 · 判断相同还是镜像 · 10 轮</p>
+  <MentalRotationTest client:load />
+</Base>
+
+<style is:global>
+  .mr { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .mr-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .mr-stage {
+    display: flex; align-items: center; justify-content: space-around;
+    height: 220px; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); cursor: pointer;
+    user-select: none; -webkit-user-select: none;
+  }
+  .mr-letter {
+    font-family: var(--font-title); font-size: 96px; font-weight: 800;
+    color: var(--on-surface);
+  }
+  .mr-letter.mr-right { color: var(--primary); }
+  .mr-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mr-buttons .app-btn { padding: 14px 12px; font-size: 15px; }
+</style>

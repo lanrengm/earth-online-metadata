@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import NBackTest from '../../components/tests/NBackTest.jsx';
+---
+<Base title="N-back 记忆" description="当前字母与 2 步前相同吗：经典 2-back 工作记忆更新任务。本机计算，零隐私收集。">
+  <h1 class="page-title">N-back 记忆</h1>
+  <p class="page-sub">当前字母与 2 步前相同时点「相同」 · 20 个字母</p>
+  <NBackTest client:load />
+</Base>
+
+<style is:global>
+  .nb { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .nb-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .nb-screen {
+    height: 260px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); color: var(--on-surface);
+    font-size: 20px; font-weight: 700; font-family: var(--font-title);
+    line-height: 1.6; cursor: pointer;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
+  }
+  .nb-screen small { font-size: 13px; font-weight: 400; color: var(--on-surface-variant); font-family: var(--font-body); }
+  .nb-screen.is-done { background: var(--primary-container); color: var(--on-primary-container); }
+  .nb-screen.is-done small { color: inherit; opacity: .8; }
+  .nb-letter { font-size: 88px; font-weight: 800; color: var(--primary); }
+  .nb-hit { width: 100%; }
+  .nb-hit:disabled { filter: grayscale(.6); opacity: .5; cursor: default; }
+</style>
