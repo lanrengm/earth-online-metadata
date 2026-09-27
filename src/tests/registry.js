@@ -100,4 +100,25 @@ export const tests = [
     icon: 'hourglass',
     tags: ['延迟满足', '自制力', '等待'],
   },
+  {
+    slug: 'aim-trainer',
+    title: '手眼精度',
+    desc: '目标点随机出现，尽快点掉，30 秒极限',
+    icon: 'ads_click',
+    tags: ['手眼协调', '瞄准', '精准'],
+  },
+  {
+    slug: 'mental-math',
+    title: '心算速度',
+    desc: '连续加减乘，看你的数学流畅性',
+    icon: 'calculate',
+    tags: ['心算', '数学', '计算'],
+  },
+  {
+    slug: 'color-vision',
+    title: '色觉辨别',
+    desc: '色块中藏了一个异色块，逐级变难',
+    icon: 'contrast',
+    tags: ['色觉', '颜色', '辨别'],
+  },
 ];

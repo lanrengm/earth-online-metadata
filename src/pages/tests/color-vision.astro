@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import ColorVisionTest from '../../components/tests/ColorVisionTest.jsx';
+---
+<Base title="色觉辨别" description="9 个色块中找出亮度略异的异色块，逐级变难：测颜色分辨力。受屏幕素质影响，本机计算，零隐私收集。">
+  <h1 class="page-title">色觉辨别</h1>
+  <p class="page-sub">找出颜色略异的色块 · 逐级变难 · 3 条命</p>
+  <ColorVisionTest client:load />
+</Base>
+
+<style is:global>
+  .cv { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .cv-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .cv-grid { max-width: 360px; margin: 0 auto; cursor: pointer; }
+  .cv-cell { cursor: pointer; border: none; }
+  .cv-cell.is-miss { outline: 2px solid var(--error); }
+</style>

@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import MentalMathTest from '../../components/tests/MentalMathTest.jsx';
+---
+<Base title="心算速度" description="连续加减乘四选一，测数学流畅性。题目每局随机生成，本机计算，零隐私收集。">
+  <h1 class="page-title">心算速度</h1>
+  <p class="page-sub">加减乘循环 · 10 题四选一 · 别用计算器</p>
+  <MentalMathTest client:load />
+</Base>
+
+<style is:global>
+  .mm-stage { height: 160px; font-size: 48px; }
+  .mm-stage .ns-seq { font-size: 44px; line-height: 1.5; }
+  .mm-stage .ns-seq small { display: block; margin-top: 10px; }
+</style>

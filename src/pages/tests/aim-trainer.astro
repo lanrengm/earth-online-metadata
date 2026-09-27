@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import AimTrainer from '../../components/tests/AimTrainer.jsx';
+---
+<Base title="手眼精度" description="目标点随机出现尽快点掉，限时 30 秒：测手眼协调与瞄准速度。本机计算，零隐私收集。">
+  <h1 class="page-title">手眼精度</h1>
+  <p class="page-sub">点中随机目标 · 限时 30 秒 · 越快越准越好</p>
+  <AimTrainer client:load />
+</Base>
+
+<style is:global>
+  .at { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .at-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .at-area {
+    position: relative; height: 380px; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); cursor: crosshair;
+    overflow: hidden; user-select: none; -webkit-user-select: none;
+  }
+  .at-idle {
+    display: flex; align-items: center; justify-content: center;
+    height: 100%; font-size: 20px; font-weight: 700;
+    font-family: var(--font-title); color: var(--on-surface-variant);
+    white-space: pre-line; text-align: center;
+  }
+  .at-target {
+    position: absolute; width: 44px; height: 44px;
+    transform: translate(-50%, -50%); border-radius: 50%;
+    border: none; background: var(--primary); cursor: crosshair;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 25%, transparent);
+    transition: left .12s ease, top .12s ease;
+  }
+</style>

@@ -33,6 +33,7 @@ const ICON_NAMES = [
   // 属性检定（tests 板块）
   'volume_up', 'palette', 'grid_view', 'rotate_right', 'repeat',
   'quiz', 'casino', 'alt_route', 'view_module', 'hourglass',
+  'ads_click', 'calculate', 'contrast',
 ];
 
 const api = `https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block&icon_names=${ICON_NAMES.join(',')}`;
