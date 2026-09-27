@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import TaskSwitchingTest from '../../components/tests/TaskSwitchingTest.jsx';
+---
+<Base title="任务切换" description="规则随机切换的数字/字母分类任务：测认知灵活性与切换成本。本机计算，零隐私收集。">
+  <h1 class="page-title">任务切换</h1>
+  <p class="page-sub">规则随机切换 · 16 轮 · 看你的切换成本有多大</p>
+  <TaskSwitchingTest client:load />
+</Base>
+
+<style is:global>
+  .ts2 { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .ts2-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--primary); text-align: center; font-family: var(--font-title);
+  }
+  .ts2-stage {
+    height: 200px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); color: var(--on-surface);
+    cursor: pointer; user-select: none; -webkit-user-select: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ts2-stim {
+    font-size: 56px; font-weight: 800; font-family: var(--font-title);
+    display: flex; align-items: baseline; gap: 18px;
+    font-variant-numeric: tabular-nums; line-height: 1.4; text-align: center;
+  }
+  .ts2-stim small { font-size: 56px; color: var(--primary); }
+  .ts2-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ts2-buttons .app-btn { padding: 14px 12px; font-size: 16px; }
+</style>

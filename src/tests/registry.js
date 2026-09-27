@@ -65,4 +65,25 @@ export const tests = [
     icon: 'repeat',
     tags: ['工作记忆', 'N-back', '更新'],
   },
+  {
+    slug: 'number-series',
+    title: '逻辑推理',
+    desc: '找出数列规律，选出下一个数',
+    icon: 'quiz',
+    tags: ['逻辑', '推理', '数列'],
+  },
+  {
+    slug: 'risk-preference',
+    title: '风险偏好',
+    desc: '确定的小奖还是五五开的大奖？六道选择题',
+    icon: 'casino',
+    tags: ['风险', '决策', '偏好'],
+  },
+  {
+    slug: 'task-switching',
+    title: '任务切换',
+    desc: '规则随机切换：按奇偶或按元音分类，测切换成本',
+    icon: 'alt_route',
+    tags: ['认知灵活性', '切换', '执行'],
+  },
 ];

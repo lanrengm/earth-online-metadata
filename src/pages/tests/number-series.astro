@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import NumberSeriesTest from '../../components/tests/NumberSeriesTest.jsx';
+---
+<Base title="逻辑推理" description="10 道难度递增的数列找规律：测归纳推理能力。本机计算，零隐私收集。">
+  <h1 class="page-title">逻辑推理</h1>
+  <p class="page-sub">找出数列规律，选出下一个数 · 10 题难度递增</p>
+  <NumberSeriesTest client:load />
+</Base>
+
+<style is:global>
+  .ns { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .ns-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .ns-stage {
+    height: 180px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); color: var(--on-surface);
+    font-size: 40px; font-weight: 800; font-family: var(--font-title);
+    letter-spacing: 2px; cursor: pointer; font-variant-numeric: tabular-nums;
+    user-select: none; -webkit-user-select: none;
+  }
+  .ns-stage small { font-size: 14px; font-weight: 400; color: var(--on-surface-variant); font-family: var(--font-body); letter-spacing: 0; }
+  .ns-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .ns-opt {
+    height: 64px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-high); color: var(--on-surface);
+    font-size: 20px; font-weight: 700; font-family: var(--font-title);
+    font-variant-numeric: tabular-nums; cursor: pointer;
+    transition: background-color .1s ease, color .1s ease, filter .1s ease;
+  }
+  .ns-opt:hover { filter: brightness(1.05); }
+  .ns-opt.is-right { background: var(--primary); color: var(--on-primary); }
+  .ns-opt.is-wrong { background: color-mix(in srgb, var(--error) 16%, var(--surface-container-high)); color: var(--error); }
+</style>
