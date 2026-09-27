@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import DelayGratificationTest from '../../components/tests/DelayGratificationTest.jsx';
+---
+<Base title="延迟满足" description="立即拿小积分还是等待换大积分：阶梯式延迟满足任务，测你的等待倾向。本机计算，零隐私收集。">
+  <h1 class="page-title">延迟满足</h1>
+  <p class="page-sub">立即拿 10 分，还是等待换大积分？· 5 轮阶梯 · 虚拟积分</p>
+  <DelayGratificationTest client:load />
+</Base>
+
+<style is:global>
+  .dg { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .dg-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .dg-stage {
+    min-height: 240px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); color: var(--on-surface);
+    font-family: var(--font-title); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; text-align: center; user-select: none; -webkit-user-select: none;
+  }
+  .dg-q { font-size: 20px; font-weight: 800; line-height: 1.8; }
+  .dg-q small { font-size: 13.5px; font-weight: 400; color: var(--on-surface-variant); font-family: var(--font-body); }
+  .dg-win { color: var(--primary); }
+  .dg-giveup {
+    align-self: center; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-high); color: var(--on-surface-variant);
+    padding: 10px 20px; font-size: 13px; cursor: pointer; font-family: var(--font-body);
+  }
+</style>

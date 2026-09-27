@@ -86,4 +86,18 @@ export const tests = [
     icon: 'alt_route',
     tags: ['认知灵活性', '切换', '执行'],
   },
+  {
+    slug: 'spatial-memory',
+    title: '空间记忆',
+    desc: '色块闪现的位置和顺序，凭记忆复现',
+    icon: 'view_module',
+    tags: ['空间记忆', 'Corsi', '位置'],
+  },
+  {
+    slug: 'delay-gratification',
+    title: '延迟满足',
+    desc: '立即拿小积分，还是等待换大积分？',
+    icon: 'hourglass',
+    tags: ['延迟满足', '自制力', '等待'],
+  },
 ];

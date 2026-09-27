@@ -33,6 +33,8 @@ describe.skipIf(!distReady)('dist smoke', () => {
       'tests/number-series/index.html',
       'tests/risk-preference/index.html',
       'tests/task-switching/index.html',
+      'tests/spatial-memory/index.html',
+      'tests/delay-gratification/index.html',
       'articles/index.html',
       'articles/education-percentile/index.html',
       'privacy/index.html',
