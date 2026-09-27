@@ -23,4 +23,25 @@ export const tests = [
     icon: 'timeline',
     tags: ['工作记忆', '记忆', '数字'],
   },
+  {
+    slug: 'auditory-reaction',
+    title: '听觉反应',
+    desc: '听到提示音的瞬间点击，5 轮取中位数',
+    icon: 'volume_up',
+    tags: ['反应速度', '听觉', '声音'],
+  },
+  {
+    slug: 'stroop',
+    title: 'Stroop 干扰',
+    desc: '按字的颜色选择，无视字义干扰',
+    icon: 'palette',
+    tags: ['干扰抑制', '注意力', '颜色'],
+  },
+  {
+    slug: 'visual-search',
+    title: '视觉搜索',
+    desc: '在一堆干扰符号中找出唯一目标',
+    icon: 'grid_view',
+    tags: ['注意力', '目标搜索', '视觉'],
+  },
 ];

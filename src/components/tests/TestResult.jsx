@@ -1,10 +1,12 @@
 import { percentileLabel } from '../../lib/testutils.js';
 
 /**
- * 测试结果卡 + 历史列表（属性检定三测试共用）。
- * 数据红线：normNote 必须明示参考分布来源与非临床局限。
+ * 测试结果卡 + 历史列表（属性检定测试共用）。
+ * percentile 传 null 表示该指标暂无参考分布（实验性指标）：隐藏百分位条，仅与本机历史对照。
+ * 数据红线：normNote 必须明示参考分布来源与局限。
  */
 export default function TestResult({ value, unit, extra, percentile, normNote, history, unitLabel }) {
+  const hasNorm = percentile !== null && percentile !== undefined;
   return (
     <>
       {value !== null && (
@@ -15,10 +17,14 @@ export default function TestResult({ value, unit, extra, percentile, normNote, h
             {unit && <span className="ts-unit">{unit}</span>}
           </p>
           {extra && <p className="ts-extra">{extra}</p>}
-          <div className="ts-bar" role="img" aria-label={percentileLabel(percentile)}>
-            <div className="ts-bar-fill" style={{ width: `${percentile}%` }}></div>
-          </div>
-          <p className="ts-percentile">{percentileLabel(percentile)} · 高于参考人群中 {percentile}% 的人</p>
+          {hasNorm && (
+            <>
+              <div className="ts-bar" role="img" aria-label={percentileLabel(percentile)}>
+                <div className="ts-bar-fill" style={{ width: `${percentile}%` }}></div>
+              </div>
+              <p className="ts-percentile">{percentileLabel(percentile)} · 高于参考人群中 {percentile}% 的人</p>
+            </>
+          )}
           <p className="ts-norm">{normNote}</p>
         </div>
       )}
@@ -31,7 +37,7 @@ export default function TestResult({ value, unit, extra, percentile, normNote, h
               <li key={i}>
                 <span>{h.date}</span>
                 <strong>{h.score}{unitLabel && ` ${unitLabel}`}</strong>
-                <span>{percentileLabel(h.percentile)}</span>
+                <span>{h.percentile != null ? percentileLabel(h.percentile) : '—'}</span>
               </li>
             ))}
           </ul>

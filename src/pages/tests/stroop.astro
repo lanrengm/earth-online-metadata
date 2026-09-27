@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import StroopTest from '../../components/tests/StroopTest.jsx';
+---
+<Base title="Stroop 干扰" description="按字的颜色选择、无视字义：经典 Stroop 干扰范式，测干扰抑制能力。本机计算，零隐私收集。">
+  <h1 class="page-title">Stroop 干扰</h1>
+  <p class="page-sub">按「字的颜色」选色块，别读字 · 12 轮</p>
+  <StroopTest client:load />
+</Base>
+
+<style is:global>
+  .st { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .st-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .st-word {
+    height: 200px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low);
+    font-size: 64px; font-weight: 800; font-family: var(--font-title);
+    cursor: pointer; user-select: none; -webkit-user-select: none;
+  }
+  .st-word.is-idle { color: var(--on-surface); font-size: 24px; }
+  .st-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .st-swatch {
+    height: 76px; border: none; border-radius: var(--radius-lg); cursor: pointer;
+    transition: filter .12s ease;
+  }
+  .st-swatch:hover { filter: brightness(1.12); }
+  .st-rounds { font-size: 13px; color: var(--on-surface-variant); text-align: center; }
+</style>

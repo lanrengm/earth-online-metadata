@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import VisualSearchTest from '../../components/tests/VisualSearchTest.jsx';
+---
+<Base title="视觉搜索" description="在 36 个符号中找出唯一的 ★：经典特征搜索范式，测注意力与目标搜索。本机计算，零隐私收集。">
+  <h1 class="page-title">视觉搜索</h1>
+  <p class="page-sub">找到唯一的 ★ · 5 轮取中位数 · 越快越好</p>
+  <VisualSearchTest client:load />
+</Base>
+
+<style is:global>
+  .vs { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .vs-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .vs-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
+    background: var(--surface-container-low); border-radius: var(--radius-lg);
+    padding: 12px;
+  }
+  .vs-cell {
+    aspect-ratio: 1; border: none; border-radius: 8px;
+    background: transparent; color: var(--on-surface-variant);
+    font-size: 20px; line-height: 1; cursor: pointer;
+    user-select: none; -webkit-user-select: none;
+    transition: background-color .1s ease, color .1s ease;
+  }
+  .vs-cell:hover { background: var(--surface-container-high); }
+  .vs-cell.is-target { color: var(--primary); font-weight: 700; }
+</style>
