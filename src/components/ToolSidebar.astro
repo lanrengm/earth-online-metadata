@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { tools } from '../tools/registry.js';
+import { tests } from '../tests/registry.js';
 import { withBase } from '../lib/paths.js';
 
 interface Props {
@@ -10,8 +11,10 @@ interface Props {
 const { current } = Astro.props;
 
 const isArticlesArea = current.startsWith('/articles');
+const isTestsArea = current.startsWith('/tests');
 const isToolsHome = current === '/tools/' || current === '/tools';
 const isArticlesHome = current === '/articles/' || current === '/articles';
+const isTestsHome = current === '/tests/' || current === '/tests';
 
 const groups = new Map<string, typeof tools>();
 for (const t of tools) {
@@ -35,7 +38,35 @@ const articles = isArticlesArea
       <span class="ts-brand-name">17 号玩家</span>
     </a>
 
-    {isArticlesArea ? (
+    {isTestsArea ? (
+      <nav class="ts-nav">
+        <a
+          href={withBase('/tests/')}
+          class:list={['ts-item', { active: isTestsHome }]}
+          aria-current={isTestsHome ? 'page' : undefined}
+        >
+          <span class="mi" aria-hidden="true">psychology</span>
+          全部检定
+        </a>
+        <div class="ts-group">
+          <div class="ts-group-title">能力测试</div>
+          {tests.map((t) => {
+            const href = `/tests/${t.slug}/`;
+            const active = current === href;
+            return (
+              <a
+                href={withBase(href)}
+                class:list={['ts-item', { active }]}
+                aria-current={active ? 'page' : undefined}
+              >
+                {t.icon && <span class="mi" aria-hidden="true">{t.icon}</span>}
+                {t.title}
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+    ) : isArticlesArea ? (
       <nav class="ts-nav">
         <a
           href={withBase('/articles/')}

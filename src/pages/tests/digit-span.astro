@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import DigitSpanTest from '../../components/tests/DigitSpanTest.jsx';
+---
+<Base title="数字广度" description="数字逐个闪现后按顺序复现：经典工作记忆容量测量（Miller 7±2）。本机计算，零隐私收集。">
+  <h1 class="page-title">数字广度</h1>
+  <p class="page-sub">按顺序复现闪现的数字 · 每个长度可错 1 次</p>
+  <DigitSpanTest client:load />
+</Base>
+
+<style is:global>
+  .ds { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .ds-screen {
+    height: 260px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); color: var(--on-surface);
+    font-size: 20px; font-weight: 700; font-family: var(--font-title);
+    line-height: 1.5; cursor: pointer; position: relative;
+    transition: background-color .15s ease;
+    user-select: none; -webkit-user-select: none;
+  }
+  .ds-screen small { font-size: 13px; font-weight: 400; color: var(--on-surface-variant); font-family: var(--font-body); }
+  .ds-screen:disabled { cursor: default; }
+  .ds-screen.is-pass { background: var(--primary-container); color: var(--on-primary-container); }
+  .ds-screen.is-fail { background: color-mix(in srgb, var(--error) 12%, var(--surface-container-low)); }
+  .ds-digit {
+    font-size: 72px; font-weight: 800; letter-spacing: 8px;
+    font-variant-numeric: tabular-nums; color: var(--primary);
+  }
+  .ds-recall { font-size: 16px; }
+  .ds-feedback { position: absolute; right: 16px; top: 14px; font-size: 15px; font-weight: 800; }
+  .ds-form { display: flex; gap: 12px; }
+  .ds-input {
+    flex: 1; height: 52px; padding: 0 16px;
+    border: 2px solid transparent; border-radius: var(--radius-lg);
+    background: var(--surface-container-high); color: var(--on-surface);
+    font-size: 22px; font-family: var(--font-title);
+    letter-spacing: 6px; font-variant-numeric: tabular-nums;
+    outline: none; transition: border-color .15s ease;
+  }
+  .ds-input:focus { border-color: var(--primary); }
+  .ds-submit {
+    height: 52px; padding: 0 24px; border: none; border-radius: var(--radius-lg);
+    background: var(--primary); color: var(--on-primary);
+    font-size: 15px; font-weight: 600; cursor: pointer; font-family: var(--font-body);
+    transition: filter .15s ease;
+  }
+  .ds-submit:hover { filter: brightness(1.05); }
+  .ds-progress { font-size: 13px; color: var(--on-surface-variant); }
+</style>

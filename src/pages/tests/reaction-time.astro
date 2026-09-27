@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import ReactionTest from '../../components/tests/ReactionTest.jsx';
+---
+<Base title="视觉反应" description="屏幕变绿的瞬间点击：5 轮取中位数，测你的视觉简单反应时。本机计算，零隐私收集。">
+  <h1 class="page-title">视觉反应</h1>
+  <p class="page-sub">屏幕变绿的瞬间点击 · 5 轮取中位数</p>
+  <ReactionTest client:load />
+</Base>
+
+<style is:global>
+  .rt { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .rt-pad {
+    height: 260px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); color: var(--on-surface);
+    font-size: 22px; font-weight: 700; font-family: var(--font-title);
+    line-height: 1.5; cursor: pointer;
+    transition: background-color .08s ease, color .08s ease;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
+  }
+  .rt-pad small { font-size: 13px; font-weight: 400; color: var(--on-surface-variant); font-family: var(--font-body); }
+  .rt-pad.is-waiting { background: var(--surface-container-high); color: var(--on-surface-variant); }
+  .rt-pad.is-go { background: var(--primary); color: var(--on-primary); }
+  .rt-early { color: var(--error); }
+  .rt-rounds { display: flex; gap: 8px; flex-wrap: wrap; }
+  .rt-chip {
+    padding: 4px 12px; border-radius: 999px; font-size: 13px;
+    background: var(--surface-container-high); color: var(--on-surface-variant);
+    font-variant-numeric: tabular-nums;
+  }
+  .rt-chip.is-pending { opacity: .5; }
+  .rt-last { font-size: 13px; color: var(--on-surface-variant); }
+</style>

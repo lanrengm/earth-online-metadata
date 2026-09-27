@@ -94,6 +94,11 @@
 │   │   │   ├── GlobalSearch.jsx     # 顶栏全局搜索（Ctrl+K、下拉直达、首页联动）
 │   │   │   ├── LifeQuestTree.jsx    # 人生主线任务板（首个工具）
 │   │   │   └── EarningsCalculator.jsx # 生涯收入计算器（工具二，静态口径，决策 #15）
+│   │   ├── tests/                   # 属性检定测试组件（第三板块，决策 #16）
+│   │   │   ├── TestResult.jsx       # 结果卡+本机历史（三测试共用）
+│   │   │   ├── ReactionTest.jsx     # 视觉简单反应
+│   │   │   ├── ChoiceReactionTest.jsx # 4 选 1 选择反应
+│   │   │   └── DigitSpanTest.jsx    # 数字广度（工作记忆）
 │   │   └── articles/
 │   │       ├── Chart.jsx            # ECharts 通用封装（全站唯一入口）
 │   │       ├── DataPanel.jsx        # 文章数据面板
@@ -106,6 +111,7 @@
 │   │   ├── census2020.js            # 七普校准数据（含来源与口径注释）
 │   │   └── eduTrends.js             # 教育部毛入学率年度序列
 │   ├── tools/registry.js  # 工具注册表（新增工具 = 加一条；category 驱动侧边栏分组）
+│   ├── tests/registry.js  # 属性检定注册表（第三板块 /tests/，决策 #16）
 │   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
 │   ├── styles/tokens.css  # M3 设计令牌 + 全局外壳样式（fnos 风格根基）

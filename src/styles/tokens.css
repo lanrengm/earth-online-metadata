@@ -132,6 +132,33 @@ a:hover { text-decoration: underline; }
 .page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
 .page-sub { color: var(--on-surface-variant); margin: 8px 0 24px; line-height: 1.7; }
 
+/* ── 属性检定：结果卡与历史（tests 板块共享，fnos：无边框色阶） ── */
+.ts-result, .ts-history {
+  background: var(--surface-container-low);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+}
+.ts-result-label, .ts-history-label { font-size: 13px; color: var(--on-surface-variant); margin-bottom: 8px; }
+.ts-value {
+  font-family: var(--font-title); font-size: 44px; font-weight: 800;
+  color: var(--primary); line-height: 1.2;
+  font-variant-numeric: tabular-nums; margin-bottom: 6px;
+}
+.ts-unit { font-size: 20px; font-weight: 600; margin-left: 4px; }
+.ts-extra { font-size: 13.5px; color: var(--on-surface-variant); margin-bottom: 14px; }
+.ts-bar { height: 8px; border-radius: 999px; background: var(--surface-container-high); overflow: hidden; margin-bottom: 8px; }
+.ts-bar-fill { height: 100%; border-radius: 999px; background: var(--primary); transition: width .5s ease; }
+.ts-percentile { font-size: 14px; font-weight: 600; color: var(--on-surface); margin-bottom: 10px; }
+.ts-norm { font-size: 12px; color: var(--on-surface-variant); line-height: 1.6; }
+.ts-history { margin-top: 16px; }
+.ts-history-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.ts-history-list li {
+  display: flex; justify-content: space-between; gap: 12px;
+  font-size: 13.5px; font-variant-numeric: tabular-nums;
+}
+.ts-history-list strong { color: var(--primary); }
+.ts-history-list .ts-norm { margin: 0; }
+
 /* ── Material Symbols（对齐 app material_symbols_icons） ── */
 .mi {
   font-family: 'Material Symbols Rounded';

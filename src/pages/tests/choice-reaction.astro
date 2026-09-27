@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import ChoiceReactionTest from '../../components/tests/ChoiceReactionTest.jsx';
+---
+<Base title="选择反应" description="四个方块随机亮起，点对亮的那个：测 4 选 1 选择反应时与抑制控制。本机计算，零隐私收集。">
+  <h1 class="page-title">选择反应</h1>
+  <p class="page-sub">亮哪个点哪个 · 8 轮正确轮取中位数</p>
+  <ChoiceReactionTest client:load />
+</Base>
+
+<style is:global>
+  .cr { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+  .cr-status {
+    min-height: 28px; font-size: 15px; font-weight: 600;
+    color: var(--on-surface-variant); text-align: center;
+  }
+  .cr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cr-cell {
+    height: 110px; border: none; border-radius: var(--radius-lg);
+    background: var(--surface-container-low); color: var(--on-surface-variant);
+    font-size: 17px; font-weight: 700; font-family: var(--font-title);
+    cursor: pointer;
+    transition: background-color .06s ease, color .06s ease;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
+  }
+  .cr-cell.is-active { background: var(--primary); color: var(--on-primary); }
+  .cr-cell.is-hit { background: var(--primary-container); color: var(--on-primary-container); }
+  .cr-cell.is-miss { background: color-mix(in srgb, var(--error) 14%, var(--surface-container-low)); color: var(--error); }
+  .cr-rounds { font-size: 13px; color: var(--on-surface-variant); text-align: center; }
+</style>

@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+---
+<Base title="属性检定" description="可重复、可量化的人类能力行为测量：反应速度、工作记忆等，本机计算零隐私收集。">
+  <h1 class="page-title">属性检定</h1>
+  <p class="page-sub">可重复、可量化的行为测量 · 结果只存在你本机</p>
+
+  <div class="test-list">
+    {tests.map((t) => (
+      <a class="app-card test-card" href={withBase(`/tests/${t.slug}/`)}>
+        <div class="test-icon"><span class="mi">{t.icon}</span></div>
+        <h2>{t.title}</h2>
+        <p>{t.desc}</p>
+      </a>
+    ))}
+  </div>
+
+  <p class="test-note">所有测试在浏览器本地完成，成绩仅保存在本机（localStorage），不上传任何数据。结果为行为指标参考，非医学或心理诊断。</p>
+</Base>
+
+<style is:global>
+  .test-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .test-card { display: block; padding: 20px; transition: box-shadow .15s ease; }
+  .test-card:hover { text-decoration: none; box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }
+  .test-icon {
+    width: 48px; height: 48px; border-radius: 12px; margin-bottom: 12px;
+    background: var(--primary-container); color: var(--on-primary-container);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .test-icon .mi { font-size: 24px; }
+  .test-card h2 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .test-card p { font-size: 13px; color: var(--on-surface-variant); line-height: 1.5; }
+  .test-note { margin-top: 24px; font-size: 12.5px; color: var(--on-surface-variant); max-width: 640px; }
+</style>
