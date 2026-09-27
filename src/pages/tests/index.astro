@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AbilityRadar from '../../components/tests/AbilityRadar.jsx';
 import { tests } from '../../tests/registry.js';
 import { withBase } from '../../lib/paths.js';
 ---
@@ -7,11 +8,16 @@ import { withBase } from '../../lib/paths.js';
   <h1 class="page-title">属性检定</h1>
   <p class="page-sub">可重复、可量化的行为测量 · 结果只存在你本机</p>
 
+  <section class="ability-block">
+    <h2 class="ability-title">能力画像</h2>
+    <AbilityRadar client:visible />
+  </section>
+
   <div class="test-list">
     {tests.map((t) => (
       <a class="app-card test-card" href={withBase(`/tests/${t.slug}/`)}>
         <div class="test-icon"><span class="mi">{t.icon}</span></div>
-        <h2>{t.title}</h2>
+        <h3>{t.title}</h3>
         <p>{t.desc}</p>
       </a>
     ))}
@@ -21,6 +27,25 @@ import { withBase } from '../../lib/paths.js';
 </Base>
 
 <style is:global>
+  .ability-block {
+    background: var(--surface-container-low);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px 16px;
+    margin-bottom: 32px;
+  }
+  .ability-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; font-family: var(--font-title); }
+  .ab-loading, .ab-empty { padding: 32px 0; text-align: center; color: var(--on-surface-variant); font-size: 14px; }
+  .ab-empty .ab-norm { margin-top: 8px; font-size: 12px; }
+  .ab { display: flex; flex-direction: column; gap: 8px; }
+  .ab-detail { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .ab-detail li {
+    display: flex; justify-content: space-between; gap: 12px;
+    font-size: 13.5px; font-variant-numeric: tabular-nums;
+  }
+  .ab-detail strong { color: var(--primary); }
+  .ab-date { color: var(--on-surface-variant); }
+  .ab-norm { font-size: 12px; color: var(--on-surface-variant); line-height: 1.6; }
+  .ab-sub { font-size: 13px; font-weight: 700; color: var(--on-surface); margin-top: 12px; }
   .test-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
   .test-card { display: block; padding: 20px; transition: box-shadow .15s ease; }
   .test-card:hover { text-decoration: none; box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }

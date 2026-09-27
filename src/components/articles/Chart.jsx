@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts/core';
-import { BarChart, ScatterChart } from 'echarts/charts';
+import { BarChart, ScatterChart, RadarChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 
-echarts.use([BarChart, ScatterChart, GridComponent, TooltipComponent, CanvasRenderer]);
+echarts.use([BarChart, ScatterChart, RadarChart, GridComponent, TooltipComponent, CanvasRenderer]);
 
 /** 观察站点主题（html[data-theme]），返回 'light' | 'dark'，切换时触发重渲染（SSR 环境返回 'light'） */
 export function useThemeName() {
