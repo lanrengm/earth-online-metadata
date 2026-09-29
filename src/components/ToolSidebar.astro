@@ -12,9 +12,15 @@ const { current } = Astro.props;
 
 const isArticlesArea = current.startsWith('/articles');
 const isTestsArea = current.startsWith('/tests');
-const isToolsHome = current === '/tools/' || current === '/tools';
-const isArticlesHome = current === '/articles/' || current === '/articles';
-const isTestsHome = current === '/tests/' || current === '/tests';
+const isToolsArea = current.startsWith('/tools');
+
+/* 一级导航（决策 #17 修订四/五：主页/攻略/辅助工具/天赋检测，单列动线全站唯一高亮源） */
+const areas = [
+  { href: '/', label: '主页', icon: 'home', active: current === '/' },
+  { href: '/articles/', label: '攻略', icon: 'article', active: isArticlesArea },
+  { href: '/tools/', label: '辅助工具', icon: 'widgets', active: isToolsArea },
+  { href: '/tests/', label: '天赋检测', icon: 'psychology', active: isTestsArea },
+];
 
 const groups = new Map<string, typeof tools>();
 for (const t of tools) {
@@ -22,6 +28,15 @@ for (const t of tools) {
   const list = groups.get(key);
   if (list) list.push(t);
   else groups.set(key, [t]);
+}
+
+/* 天赋检测按认知领域分组（决策 #17 修订七：category 字段，注册表顺序即展示顺序） */
+const testGroups = new Map<string, typeof tests>();
+for (const t of tests) {
+  const key = t.category || '其他';
+  const list = testGroups.get(key);
+  if (list) list.push(t);
+  else testGroups.set(key, [t]);
 }
 
 const articles = isArticlesArea
@@ -35,47 +50,52 @@ const articles = isArticlesArea
 <aside class="tool-sidebar" id="tool-sidebar" aria-label="侧边导航">
   <div class="ts-inner">
     <a href={withBase('/tools/')} class="ts-brand">
+      <span class="ts-brand-sub">EARTH ONLINE</span>
       <span class="ts-brand-name">17 号玩家</span>
+      <span class="ts-brand-meta"><span class="ts-brand-dot"></span>PLAYER · 17</span>
     </a>
+
+    <div class="ts-scroll">
+    <nav class="ts-areas" aria-label="一级导航">
+      {areas.map((a) => (
+        <a
+          href={withBase(a.href)}
+          class:list={['ts-area', { active: a.active }]}
+          aria-current={a.active ? 'page' : undefined}
+        >
+          <span class="mi" aria-hidden="true">{a.icon}</span>
+          {a.label}
+        </a>
+      ))}
+    </nav>
 
     {isTestsArea ? (
       <nav class="ts-nav">
-        <a
-          href={withBase('/tests/')}
-          class:list={['ts-item', { active: isTestsHome }]}
-          aria-current={isTestsHome ? 'page' : undefined}
-        >
-          <span class="mi" aria-hidden="true">psychology</span>
-          全部检定
-        </a>
-        <div class="ts-group">
-          <div class="ts-group-title">能力测试</div>
-          {tests.map((t) => {
-            const href = `/tests/${t.slug}/`;
-            const active = current === href;
-            return (
-              <a
-                href={withBase(href)}
-                class:list={['ts-item', { active }]}
-                aria-current={active ? 'page' : undefined}
-              >
-                {t.icon && <span class="mi" aria-hidden="true">{t.icon}</span>}
-                {t.title}
-              </a>
-            );
-          })}
-        </div>
+        {[...testGroups.entries()].map(([cat, list]) => (
+          <div class="ts-group" data-group={cat}>
+            <button class="ts-group-toggle" type="button" aria-expanded="true">
+              <span class="mi ts-chev" aria-hidden="true">expand_more</span>
+              {cat}
+            </button>
+            {list.map((t) => {
+              const href = `/tests/${t.slug}/`;
+              const active = current === href;
+              return (
+                <a
+                  href={withBase(href)}
+                  class:list={['ts-item', { active }]}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {t.icon && <span class="mi" aria-hidden="true">{t.icon}</span>}
+                  {t.title}
+                </a>
+              );
+            })}
+          </div>
+        ))}
       </nav>
     ) : isArticlesArea ? (
       <nav class="ts-nav">
-        <a
-          href={withBase('/articles/')}
-          class:list={['ts-item', { active: isArticlesHome }]}
-          aria-current={isArticlesHome ? 'page' : undefined}
-        >
-          <span class="mi" aria-hidden="true">article</span>
-          全部文章
-        </a>
         <div class="ts-group">
           <div class="ts-group-title">最新文章</div>
           {articles.map((a) => {
@@ -98,15 +118,6 @@ const articles = isArticlesArea
       </nav>
     ) : (
       <nav class="ts-nav">
-        <a
-          href={withBase('/tools/')}
-          class:list={['ts-item', { active: isToolsHome }]}
-          aria-current={isToolsHome ? 'page' : undefined}
-        >
-          <span class="mi" aria-hidden="true">home</span>
-          全部工具
-        </a>
-
         {[...groups.entries()].map(([name, list]) => (
           <div class="ts-group">
             <div class="ts-group-title">{name}</div>
@@ -136,6 +147,7 @@ const articles = isArticlesArea
         <a href={withBase('/terms/')}>用户协议</a>
       </nav>
     </footer>
+    </div>
   </div>
 </aside>
 
@@ -165,20 +177,69 @@ const articles = isArticlesArea
     width: 280px; height: 100%;
     display: flex; flex-direction: column;
     background: var(--surface-container-low);
+    overflow-y: auto; /* 全侧栏整体滚动（决策 #17 修订七：品牌块不固定） */
   }
 
-  /* 玩家名牌（fnos：纯色阶，无描边无渐变） */
+  /* 玩家名牌（决策 #17 修订二/五：HUD 面板，全主题统一） */
   .ts-brand {
     flex-shrink: 0;
     display: flex; flex-direction: column; gap: 4px;
     padding: 26px 22px 22px;
-    background: var(--primary);
-    color: var(--on-primary);
+    background: transparent;
+    color: var(--on-surface);
+    border-bottom: 1px solid var(--outline-variant);
+    border-left: 2px solid var(--primary);
+    position: relative;
   }
   .ts-brand:hover { text-decoration: none; }
-  .ts-brand-name { font-family: var(--font-title); font-size: 22px; font-weight: 800; letter-spacing: .5px; }
+  .ts-brand::after {
+    content: '';
+    position: absolute; top: 8px; right: 8px;
+    width: 9px; height: 9px;
+    border-top: 2px solid var(--primary);
+    border-right: 2px solid var(--primary);
+    opacity: .85;
+  }
+  .ts-brand-sub {
+    display: block;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.5px;
+    color: var(--primary);
+  }
+  .ts-brand-name { font-family: var(--font-title); font-size: 22px; font-weight: 800; letter-spacing: 3px; } /* 科幻风：宽字距名牌 */
+  .ts-brand-meta {
+    display: flex; align-items: center; gap: 6px; margin-top: 8px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px;
+    color: var(--on-surface-variant);
+  }
+  .ts-brand-dot {
+    display: inline-block;
+    width: 6px; height: 6px; border-radius: 999px;
+    background: var(--primary);
+    box-shadow: 0 0 6px var(--primary);
+  }
 
-  .ts-nav { flex: 1; overflow-y: auto; padding: 12px 10px 16px; display: flex; flex-direction: column; gap: 4px; }
+  /* 一级导航（决策 #17 修订四/五）：品牌块下方的四区切换，区内选中用品牌色 + accent 线 */
+  .ts-areas { display: flex; flex-direction: column; gap: 2px; padding: 12px 10px; border-bottom: 1px solid var(--outline-variant); }
+  .ts-area {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; border-radius: var(--radius-lg);
+    color: var(--on-surface-variant);
+    font-size: 14px; font-weight: 600;
+  }
+  .ts-area .mi { font-size: 20px; flex-shrink: 0; }
+  .ts-area:hover { text-decoration: none; color: var(--primary); }
+  .ts-area.active {
+    background: var(--surface-container-high);
+    color: var(--primary);
+    box-shadow: inset 2px 0 0 var(--primary);
+  }
+
+  /* 滚动结构（决策 #17 修订七）：品牌块随内容一起滚动 */
+  .ts-scroll {
+    display: flex; flex-direction: column;
+  }
+
+  .ts-nav { padding: 12px 10px 16px; display: flex; flex-direction: column; gap: 4px; }
   .ts-item {
     display: flex; align-items: center; gap: 12px;
     padding: 10px 14px; border-radius: var(--radius-lg);
@@ -190,6 +251,7 @@ const articles = isArticlesArea
   .ts-item.active {
     background: var(--surface-container-high);
     color: var(--on-surface); font-weight: 600;
+    box-shadow: inset 2px 0 0 var(--primary); /* 科幻风：左侧主色 accent 线（决策 #17） */
   }
 
   .ts-group { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
@@ -200,16 +262,30 @@ const articles = isArticlesArea
     letter-spacing: .5px;
   }
 
+  /* 分组折叠（it-tools 式，决策 #17 修订七）：仅天赋检测区；默认展开，状态存 localStorage */
+  .ts-group-toggle {
+    display: flex; align-items: center; gap: 4px;
+    width: 100%; padding: 14px 10px 6px;
+    border: none; background: transparent; cursor: pointer;
+    font-size: 12px; font-weight: 600; letter-spacing: .5px;
+    color: var(--on-surface-variant); font-family: var(--font-body);
+    text-align: left;
+  }
+  .ts-chev { font-size: 16px; transition: transform .15s ease; }
+  .ts-group.collapsed .ts-chev { transform: rotate(-90deg); }
+  .ts-group.collapsed .ts-item { display: none; }
+
   /* 文章条目：标题可两行 + 日期小字 */
   .ts-article { align-items: flex-start; flex-direction: column; gap: 3px; }
   .ts-article-text { font-size: 14px; line-height: 1.4; }
-  .ts-article-date { font-size: 12px; color: var(--on-surface-variant); font-weight: 400; }
+  .ts-article-date { font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-variant); font-weight: 400; }
 
-  /* 侧栏底部版权：常驻不随导航滚走；fnos 色阶分隔（surface 对 container-low），不用边线 */
+  /* 侧栏底部版权：常驻不随导航滚走；与侧栏同底色，分割线区分边界（决策 #17 修订五） */
   .ts-footer {
     flex-shrink: 0;
     padding: 14px 18px 18px;
-    background: var(--surface);
+    background: transparent;
+    border-top: 1px solid var(--outline-variant);
     color: var(--on-surface-variant);
     font-size: 12px;
   }
@@ -245,6 +321,14 @@ const articles = isArticlesArea
     root.setAttribute('data-sidebar', open ? 'open' : 'closed');
     localStorage.setItem(KEY, open ? '1' : '0');
     toggle?.setAttribute('aria-expanded', String(open));
+    // 手机抽屉打开时自动定位到选中项，免去用户滑动查找（决策 #17 修订七）
+    if (open && matchMedia('(max-width: 1023px)').matches) {
+      requestAnimationFrame(() => {
+        sidebar
+          ?.querySelector('.ts-item.active, .ts-area.active')
+          ?.scrollIntoView({ block: 'center' });
+      });
+    }
   };
 
   toggle?.setAttribute('aria-expanded', String(isOpen()));
@@ -258,4 +342,30 @@ const articles = isArticlesArea
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen() && !(e.target instanceof HTMLInputElement)) setOpen(false);
   });
+
+  // 天赋检测分组折叠（决策 #17 修订七）：默认展开，折叠状态存 localStorage
+  const KEY_GROUPS = 'eo_tests_groups';
+  const groupEls = document.querySelectorAll<HTMLElement>('.ts-group[data-group]');
+  if (groupEls.length) {
+    let collapsed: string[] = [];
+    try { collapsed = JSON.parse(localStorage.getItem(KEY_GROUPS) ?? '[]'); } catch { /* 忽略坏数据 */ }
+    groupEls.forEach((g) => {
+      const name = g.getAttribute('data-group') ?? '';
+      const btn = g.querySelector<HTMLButtonElement>('.ts-group-toggle');
+      const apply = (isCollapsed: boolean) => {
+        g.classList.toggle('collapsed', isCollapsed);
+        btn?.setAttribute('aria-expanded', String(!isCollapsed));
+      };
+      apply(collapsed.includes(name));
+      btn?.addEventListener('click', () => {
+        const now = g.classList.toggle('collapsed');
+        apply(now);
+        try {
+          const set = new Set<string>(JSON.parse(localStorage.getItem(KEY_GROUPS) ?? '[]'));
+          if (now) set.add(name); else set.delete(name);
+          localStorage.setItem(KEY_GROUPS, JSON.stringify([...set]));
+        } catch { /* 写失败不阻塞交互 */ }
+      });
+    });
+  }
 </script>

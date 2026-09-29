@@ -10,9 +10,10 @@ const dist = join(import.meta.dirname, '../dist');
 const distReady = existsSync(dist);
 
 describe.skipIf(!distReady)('dist smoke', () => {
-  it('主页跳转带 base 前缀', () => {
+  it('主页生成且链接带 base 前缀（决策 #17 修订五：主页路由在 /，原跳板页移除）', () => {
     const html = readFileSync(join(dist, 'index.html'), 'utf-8');
-    expect(html).toContain('url=/earth-online-metadata/tools/');
+    expect(html).not.toContain('http-equiv="refresh"');
+    expect(html).toContain('/earth-online-metadata/tools/');
   });
 
   it('关键路由页面均生成', () => {

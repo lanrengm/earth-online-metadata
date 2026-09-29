@@ -4,8 +4,7 @@ import ToolGrid from '../../components/tools/ToolGrid.jsx';
 import { tools } from '../../tools/registry.js';
 import { withBase } from '../../lib/paths.js';
 ---
-<Base title="在线工具" description="免费、纯本地计算、无需登录的小工具合集，与 Earth Online 人生面板同源设计。">
-  <h1 class="page-title">Earth Online 辅助器</h1>
+<Base title="辅助工具" description="免费、纯本地计算、无需登录的小工具合集，与 Earth Online 人生面板同源设计。">
   <p class="page-sub">免登录即用的辅助模块，全部数据在本机运算，不上传服务器</p>
   <ToolGrid client:load tools={tools} base={withBase('')} />
 </Base>
@@ -15,14 +14,12 @@ import { withBase } from '../../lib/paths.js';
   .tool-area { display: flex; flex-direction: column; gap: 24px; }
   .tool-empty { text-align: center; color: var(--on-surface-variant); padding: 48px 0; }
   .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-  .tool-card { display: block; padding: 20px; transition: box-shadow .15s ease; }
-  .tool-card:hover { text-decoration: none; box-shadow: 0 4px 16px rgba(0, 137, 123, .12); }
-  .tool-icon {
-    width: 48px; height: 48px; border-radius: 12px; margin-bottom: 12px;
-    background: var(--primary-container); color: var(--on-primary-container);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .tool-icon .mi { font-size: 24px; }
-  .tool-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  /* 卡片信息层级（决策 #17 修订六）：图标内联弱化，青色只做 hover/选中状态色 */
+  .tool-card { display: block; padding: 20px; transition: border-color .15s ease; }
+  .tool-card:hover { text-decoration: none; border-color: var(--primary); }
+  .tool-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .tool-ic { font-size: 20px; color: var(--outline); flex-shrink: 0; transition: color .15s ease; }
+  .tool-card h3 { font-size: 16px; font-weight: 700; color: var(--on-surface); font-family: var(--font-title); margin-bottom: 0; transition: color .15s ease; }
+  .tool-card:hover h3, .tool-card:hover .tool-ic { color: var(--primary); }
   .tool-card p { font-size: 13px; color: var(--on-surface-variant); line-height: 1.5; }
 </style>

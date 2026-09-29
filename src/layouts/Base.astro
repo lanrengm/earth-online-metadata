@@ -25,11 +25,13 @@ const current = base && Astro.url.pathname.startsWith(base)
     <meta name="description" content={description} />
     <!-- 图标字体自托管子集（52 图标，75KB），preload 消除图标闪烁 -->
     <link rel="preload" href={iconFontUrl} as="font" type="font/woff2" crossorigin />
-    <!-- 首屏前设置主题，避免闪烁（FOUC）；亮/暗/跟随系统，与 app es_theme 对齐 -->
+    <!-- 首屏前设置主题，避免闪烁（FOUC）；亮/暗/跟随系统三态可选，暗色为默认（决策 #17） -->
     <script is:inline>
       (function () {
         const m = localStorage.getItem('eo_theme');
-        const dark = m === 'dark' || (m !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        const dark = m === 'light' ? false
+          : m === 'system' ? matchMedia('(prefers-color-scheme: dark)').matches
+          : true;
         document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
         if (
           localStorage.getItem('eo_sidebar') === '1'
@@ -44,7 +46,7 @@ const current = base && Astro.url.pathname.startsWith(base)
     <div class="app-shell">
       <ToolSidebar current={current} />
       <div class="app-col">
-        <AppNav current={current} />
+        <AppNav current={current} title={title} />
         <main class="app-main">
           <slot />
         </main>

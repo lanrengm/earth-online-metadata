@@ -1,21 +1,28 @@
 ---
-// 右栏顶栏：汉堡（全高侧栏开关）+ 全局搜索 + 工具/文章入口 + 主题循环切换
+// 右栏顶栏：汉堡（全高侧栏开关）+ 路径式面包屑 + 搜索触发器（岛屿）+ 主题循环切换
+// 一级导航在侧栏（决策 #17 修订四/五），顶栏只留系统级工具
 import GlobalSearch from './tools/GlobalSearch.jsx';
 import { tools } from '../tools/registry.js';
 import { withBase } from '../lib/paths.js';
 
 interface Props {
   current: string;
+  title: string;
 }
-const { current } = Astro.props;
+const { current, title } = Astro.props;
 
 const isToolsHome = current === '/tools/' || current === '/tools';
 
-const links = [
-  { href: '/tools/', label: '在线工具', icon: 'widgets' },
-  { href: '/articles/', label: '文章', icon: 'article' },
-  { href: '/tests/', label: '属性检定', icon: 'psychology' },
+const zones = [
+  { prefix: '/articles', label: '攻略' },
+  { prefix: '/tools', label: '辅助工具' },
+  { prefix: '/tests', label: '天赋检测' },
 ];
+const zone = current === '/'
+  ? { label: '主页' }
+  : zones.find((z) => current.startsWith(z.prefix)) ?? { label: '主页' };
+/* 路径式面包屑：一级页只显区域名，详情页显示 区域/页面（决策 #17 修订五） */
+const crumb = title && title !== zone.label ? `${zone.label}/${title}` : zone.label;
 ---
 
 <header class="app-nav">
@@ -30,31 +37,25 @@ const links = [
       >
         <span class="mi" aria-hidden="true">menu</span>
       </button>
+      <span class="app-zone">{crumb}</span>
+    </div>
+    <div class="app-nav-right">
       <GlobalSearch
         client:load
         tools={tools}
         base={withBase('')}
         onHome={isToolsHome}
       />
-    </div>
-    <nav class="app-nav-right">
-      <nav class="app-nav-links">
-        {links.map((l) => (
-          <a href={withBase(l.href)} class:list={[{ active: current.startsWith(l.href) }]}>
-            <span class="mi">{l.icon}</span><span class="nav-label">{l.label}</span>
-          </a>
-        ))}
-      </nav>
       <button class="theme-btn" type="button" title="点击切换主题">
         <span class="mi" aria-hidden="true">light_mode</span>
         <span class="theme-label">跟随系统</span>
       </button>
-    </nav>
+    </div>
   </div>
 </header>
 
 <style>
-  .app-nav-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+  .app-nav-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
   .sidebar-btn {
     flex-shrink: 0;
     display: inline-flex; align-items: center; justify-content: center;
@@ -66,13 +67,17 @@ const links = [
   }
   .sidebar-btn:hover { background: var(--surface-container-high); color: var(--on-surface); }
 
-  .app-nav-right { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
-  .app-nav-links a { display: inline-flex; align-items: center; gap: 4px; }
-  .app-nav-links .mi { font-size: 18px; }
-  .app-nav-links a.active { color: var(--primary); font-weight: 600; }
+  /* 路径式面包屑（决策 #17 修订五）：区域/页面，与侧栏一级导航同名 */
+  .app-zone {
+    font-family: var(--font-title); font-size: 15px; font-weight: 700;
+    color: var(--on-surface); letter-spacing: 1px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .app-nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
   .theme-btn {
     display: inline-flex; align-items: center; gap: 6px;
-    height: 36px; padding: 0 14px; border-radius: 999px;
+    height: 36px; padding: 0 14px; border-radius: var(--radius-md);
     border: 1px solid var(--outline-variant);
     background: var(--surface-container-low);
     color: var(--on-surface-variant);
@@ -82,8 +87,8 @@ const links = [
   .theme-btn:hover { border-color: var(--primary); color: var(--primary); }
 
   @media (max-width: 640px) {
-    .app-nav-right { gap: 12px; }
-    .nav-label { display: none; }
+    .app-nav-right { gap: 8px; }
+    .app-zone { font-size: 14px; }
     .theme-label { display: none; }
     .theme-btn { padding: 0 10px; }
   }
@@ -91,14 +96,27 @@ const links = [
 
 <style is:global>
   /* GlobalSearch 是 React 岛屿，样式必须全局（宿主页作用域打不进岛屿 DOM） */
-  .gs { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; }
+  .gs { position: relative; flex-shrink: 0; display: flex; align-items: center; }
+  /* 紧凑触发器（决策 #17 修订四）：点击 / Ctrl+K 展开搜索面板 */
+  .gs-trigger {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 36px; padding: 0 12px;
+    background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-md);
+    color: var(--on-surface-variant);
+    font-size: 13px; cursor: pointer; font-family: var(--font-body);
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .gs-trigger:hover { border-color: var(--primary); color: var(--primary); }
+  .gs-trigger .mi { font-size: 18px; }
   .gs-icon {
     position: absolute; left: 14px; font-size: 20px;
     color: var(--on-surface-variant); pointer-events: none;
   }
   .gs-input {
-    width: 100%; height: 40px;
-    padding: 0 72px 0 42px;
+    width: min(300px, 56vw); height: 36px;
+    padding: 0 36px 0 42px;
     border: 2px solid transparent; border-radius: var(--radius-lg);
     background: var(--surface-container-high); color: var(--on-surface);
     font-size: 14px; font-family: var(--font-body);
@@ -108,17 +126,21 @@ const links = [
   .gs-input::-webkit-search-cancel-button { display: none; }
   .gs-kbd {
     position: absolute; right: 10px;
-    font-family: var(--font-body); font-size: 11px;
+    font-family: var(--font-mono); font-size: 11px;
     color: var(--on-surface-variant);
     background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
     border-radius: 6px; padding: 2px 7px;
     pointer-events: none;
   }
+  .gs-trigger .gs-kbd { position: static; }
 
   .gs-panel {
-    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    position: absolute; top: calc(100% + 6px); right: 0;
+    width: min(440px, calc(100vw - 24px));
     max-height: 60vh; overflow-y: auto;
     background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
     border-radius: var(--radius-lg);
     box-shadow: 0 8px 28px rgba(0, 0, 0, .18);
     padding: 6px; z-index: 30;
@@ -152,7 +174,7 @@ const links = [
 </style>
 
 <script>
-  // 主题循环切换：亮 → 暗 → 跟随系统（偏好存 localStorage，head 内联脚本负责首屏防闪）
+  // 主题循环切换：亮 → 暗 → 跟随系统（偏好存 localStorage，head 内联脚本负责首屏防闪；默认暗色，决策 #17）
   const MODES = ['light', 'dark', 'system'] as const;
   type ThemeMode = (typeof MODES)[number];
   const LABELS: Record<ThemeMode, string> = {
@@ -182,7 +204,7 @@ const links = [
   const saved = localStorage.getItem('eo_theme');
   let mode: ThemeMode = saved !== null && MODES.includes(saved as ThemeMode)
     ? (saved as ThemeMode)
-    : 'system';
+    : 'dark';
   apply(mode);
   media.addEventListener('change', () => apply(mode));
 

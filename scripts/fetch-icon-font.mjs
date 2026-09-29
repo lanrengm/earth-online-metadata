@@ -34,6 +34,8 @@ const ICON_NAMES = [
   'volume_up', 'palette', 'grid_view', 'rotate_right', 'repeat',
   'quiz', 'casino', 'alt_route', 'view_module', 'hourglass',
   'ads_click', 'calculate', 'contrast',
+  // 侧栏分组折叠（决策 #17 修订七）
+  'expand_more',
 ];
 
 const api = `https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block&icon_names=${ICON_NAMES.join(',')}`;

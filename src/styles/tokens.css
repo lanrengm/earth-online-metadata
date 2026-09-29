@@ -14,61 +14,82 @@
 }
 
 :root {
-  /* ── 品牌 / 主色 ── */
-  --seed: #00897b;
-  --primary: #00897b;
+  /* ── 品牌 / 主色：亮色深青（决策 #17 修订五，与暗色青同色相呼应） ── */
+  --seed: #0891b2;
+  --primary: #0891b2;
   --on-primary: #ffffff;
-  --primary-container: #a7f3e8;
-  --on-primary-container: #00201c;
+  --primary-container: #c5ecf6;
+  --on-primary-container: #062e3a;
 
-  /* ── 表面 / 层级 ── */
-  --surface: #f3f3f3;                 /* 页面背景（es_theme surface） */
-  --surface-container-low: #ffffff;   /* 卡片 / 浮层（es_theme surfaceContainerLow） */
-  --surface-container-high: #e6e6e6;  /* 可交互灰底 */
+  /* ── 表面 / 层级：冷灰蓝 ── */
+  --surface: #eef1f5;                 /* 页面背景 */
+  --surface-container-low: #ffffff;   /* 卡片 / 浮层 */
+  --surface-container-high: #e1e6ee;  /* 可交互灰底 */
 
   /* ── 文字 / 语义 ── */
-  --on-surface: #171d1b;
-  --on-surface-variant: #444746;
-  --outline: #717875;
-  --outline-variant: #c4c7c5;
+  --on-surface: #171b21;
+  --on-surface-variant: #495060;
+  --outline: #66707e;
+  --outline-variant: #c6ccd6;
   --error: #ba1a1a;
 
   /* ── 人生主线三系配色（/tools/life-quest/；健康系用 --primary） ── */
   --branch-wealth: #a96a00;           /* 财富系 · 琥珀 */
   --branch-emotion: #d64a38;          /* 情感系 · 珊瑚 */
 
-  /* ── 形状 / 排版 ── */
-  --radius-lg: 12px;                  /* 卡片（es_theme cardTheme） */
-  --radius-md: 10px;
-  --radius-sm: 8px;
+  /* ── 形状 / 排版（微圆角全主题统一，决策 #17 修订一/五） ── */
+  --radius-lg: 4px;
+  --radius-md: 3px;
+  --radius-sm: 2px;
   --font-title: 'Outfit', -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
   --font-body: 'Inter', -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace; /* HUD 数值（决策 #17） */
+  --grid-line: rgba(23, 46, 87, 0.05); /* 蓝图网格线（亮色） */
   --shadow-none: none;
 }
 
-/* ── 暗色主题（对齐 eo esDarkTheme：surface #13171A、容器 #1A1D22） ── */
+/* ── 暗色主题：群星科幻风深空色板（决策 #17，2026-09-28）──
+   近黑蓝底 + 青（舰队 HUD）主色 + 金（财富/帝国）点缀 */
 :root[data-theme='dark'] {
-  --primary: #4dd9c8;
-  --on-primary: #00372f;
-  --primary-container: #005047;
-  --on-primary-container: #9ef1e4;
+  --primary: #4dd2e8;
+  --on-primary: #00272e;
+  --primary-container: #00505e;
+  --on-primary-container: #9fe8f1;
 
-  --surface: #13171a;
-  --surface-container-low: #1a1d22;
-  --surface-container-high: #2a2e33;
+  --surface: #0a0e14;
+  --surface-container-low: #10161f;
+  --surface-container-high: #1a2230;
 
-  --on-surface: #e1e3e3;
-  --on-surface-variant: #bec4c3;
-  --outline: #878c8b;
-  --outline-variant: #444746;
+  --on-surface: #dfe4ea;
+  --on-surface-variant: #9aa5b1;
+  --outline: #6b7684;
+  --outline-variant: #2a3442;
   --error: #ffb4ab;
 
   --branch-wealth: #f0b429;
   --branch-emotion: #ff8a73;
+
+  --grid-line: rgba(122, 170, 255, 0.04);
+}
+
+/* ── 面板语言（决策 #17 对 #13 的修订，全主题统一）：1px 细线框 + 右上切角 ── */
+.app-card,
+.ts-result,
+.ts-history {
+  border: 1px solid var(--outline-variant);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
 
 /* ── 基础 Reset ── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── 滚动条适配（决策 #17）：细滚动条融入主题，Webkit + Firefox 双轨 ── */
+* { scrollbar-width: thin; scrollbar-color: var(--outline-variant) transparent; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--outline); }
+::-webkit-scrollbar-corner { background: transparent; }
 
 html, body {
   min-height: 100vh;
@@ -77,6 +98,14 @@ html, body {
   font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ── 页面底纹：极淡蓝图网格（纯 CSS 渐变，零资源；置于 background 简写之后防重置） ── */
+body {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 a { color: var(--primary); text-decoration: none; }
@@ -93,7 +122,8 @@ a:hover { text-decoration: underline; }
 
 .app-main { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px 24px 64px; }
 
-/* ── 右栏顶栏（sticky 于右栏滚动容器内；fnos：无底边线，色阶过渡） ── */
+/* ── 右栏顶栏（sticky 于右栏滚动容器内；fnos：无底边线，色阶过渡） ──
+   一级导航已收编进侧栏（决策 #17 修订四），顶栏只留汉堡 + 区域名 + 搜索/主题 */
 .app-nav {
   position: sticky; top: 0; z-index: 10;
   background: var(--surface);
@@ -102,11 +132,6 @@ a:hover { text-decoration: underline; }
   width: 100%; margin: 0 auto; padding: 0 20px;
   height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.app-nav-links { display: flex; gap: 24px; }
-.app-nav-links a { color: var(--on-surface-variant); font-weight: 500; font-size: 15px; }
-/* fnos：导航选中态黑白（onSurface），未选中灰；品牌色只留给 hover */
-.app-nav-links a.active { color: var(--on-surface); font-weight: 600; }
-.app-nav-links a:hover { text-decoration: none; color: var(--primary); }
 
 /* ── 卡片（fnos：无边框无阴影，纯色阶分层——页底 surface → 卡片 containerLow） ── */
 .app-card {
@@ -128,11 +153,17 @@ a:hover { text-decoration: underline; }
 /* 次级按钮：填充灰阶（containerHighest），非描边 */
 .app-btn.secondary { background: var(--surface-container-high); color: var(--primary); }
 
-/* ── 页面标题（各页共用） ── */
-.page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); }
-.page-sub { color: var(--on-surface-variant); margin: 8px 0 24px; line-height: 1.7; }
+/* ── 页面标题（各页共用；科幻风：微字距，决策 #17） ── */
+.page-title { font-size: 28px; font-weight: 800; font-family: var(--font-title); letter-spacing: 1px; }
+/* ── 一级页小标题：引用样式（左 accent 竖线 + muted，决策 #17 修订五） ── */
+.page-sub {
+  color: var(--on-surface-variant);
+  margin: 8px 0 24px; line-height: 1.7;
+  border-left: 2px solid var(--primary);
+  padding: 2px 0 2px 12px;
+}
 
-/* ── 属性检定：结果卡与历史（tests 板块共享，fnos：无边框色阶） ── */
+/* ── 属性检定：结果卡与历史（tests 板块共享；暗色下细线框+切角见上，决策 #17） ── */
 .ts-result, .ts-history {
   background: var(--surface-container-low);
   border-radius: var(--radius-lg);
@@ -140,7 +171,7 @@ a:hover { text-decoration: underline; }
 }
 .ts-result-label, .ts-history-label { font-size: 13px; color: var(--on-surface-variant); margin-bottom: 8px; }
 .ts-value {
-  font-family: var(--font-title); font-size: 44px; font-weight: 800;
+  font-family: var(--font-mono); font-size: 44px; font-weight: 800;
   color: var(--primary); line-height: 1.2;
   font-variant-numeric: tabular-nums; margin-bottom: 6px;
 }
@@ -154,7 +185,7 @@ a:hover { text-decoration: underline; }
 .ts-history-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
 .ts-history-list li {
   display: flex; justify-content: space-between; gap: 12px;
-  font-size: 13.5px; font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums;
 }
 .ts-history-list strong { color: var(--primary); }
 .ts-history-list .ts-norm { margin: 0; }

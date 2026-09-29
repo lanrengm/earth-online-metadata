@@ -41,10 +41,11 @@
 关键约定：
 
 - **base 路径**：部署在 gh-pages 子路径 `/earth-online-metadata/`，页面内所有链接必须经 `src/lib/paths.js` 的 `withBase()` 生成，禁止硬编码 `/tools/` 这类根路径。
-- **路由**：`/` 手写 meta 跳转到 `/tools/`（Astro redirects 不带 base，勿改回）；`/tools/` 工具页、`/articles/` 博客、`/privacy/`、`/terms/`；`trailingSlash: 'always'`。
-- **主题**：亮/暗/跟随系统三态循环，偏好存 `localStorage('eo_theme')`；首屏防闪脚本在 `Base.astro` head 内联，切换逻辑在 `AppNav.astro`。
+- **路由**：`/` 主页（空页面 MVP，决策 #17 修订五，原跳板页已移除）；`/tools/` 辅助工具、`/articles/` 攻略、`/tests/` 天赋检测、`/privacy/`、`/terms/`；`trailingSlash: 'always'`。
+- **主题**：亮/暗/跟随系统三态循环，**暗色为默认**（决策 #17），偏好存 `localStorage('eo_theme')`；首屏防闪脚本在 `Base.astro` head 内联，切换逻辑在 `AppNav.astro`。
+- **导航与顶栏**：一级导航（主页/攻略/辅助工具/天赋检测）在侧栏（品牌块下方四区切换，唯一高亮源）；顶栏纯工具化 = 汉堡 + 路径式面包屑（`区域/页面`，Base 传 title）+ 搜索触发器 + 主题切换（决策 #14/#17 修订四/五）。
 - **组件样式作用域**：`.astro` 页面用 scoped `<style>`；React 岛屿的样式用宿主页 `<style is:global>`（scoped 选择器打不进岛屿 DOM）。
-- **fnos 视觉**：卡片/面级无边框、纯色阶分层；按钮圆角 12 非胶囊；填充式输入框。详见 docs/架构决策.md #13。
+- **视觉**：群星科幻风**全主题统一**（决策 #17 修订五）——细线框+右上切角面板、微圆角 4/3/2、HUD 品牌块、蓝图网格底纹、填充式输入框；亮色冷灰蓝板 + 深青主色 #0891b2，暗色深空板 + 青 #4dd2e8。详见 docs/架构决策.md #13/#17。
 - **图标**：自托管 Material Symbols 子集；加图标 = 名字追加进 `scripts/fetch-icon-font.mjs` 的 `ICON_NAMES` 再跑该脚本。详见 docs/架构决策.md #12。
 
 ## 内容创作
@@ -87,11 +88,11 @@
 │   ├── content/articles/  # 博客文章：每篇一个 .mdx
 │   ├── layouts/Base.astro # 全站外壳（真两栏 flex：左轨道 + 右栏独立滚动 + 主题防闪）
 │   ├── components/
-│   │   ├── AppNav.astro   # 右栏顶栏（汉堡 + GlobalSearch 岛屿 + 全站入口 + 主题切换）
-│   │   ├── ToolSidebar.astro # 左轨道（品牌块+工具/文章替换式导航+底部版权；决策 #14）
+│   │   ├── AppNav.astro   # 右栏顶栏（汉堡 + 路径式面包屑 + GlobalSearch 触发器 + 主题切换；决策 #17 修订四/五）
+│   │   ├── ToolSidebar.astro # 左轨道（全侧栏整体滚动 + 一级四区导航 + 分组可折叠替换式导航 + 底部版权；手机抽屉打开自动定位选中项；决策 #14/#17）
 │   │   ├── tools/
 │   │   │   ├── ToolGrid.jsx         # 工具网格（卡片，受全局搜索事件驱动）
-│   │   │   ├── GlobalSearch.jsx     # 顶栏全局搜索（Ctrl+K、下拉直达、首页联动）
+│   │   │   ├── GlobalSearch.jsx     # 顶栏全局搜索（紧凑触发器 + Ctrl+K 面板、首页联动过滤；决策 #17 修订四）
 │   │   │   ├── LifeQuestTree.jsx    # 人生主线任务板（首个工具）
 │   │   │   └── EarningsCalculator.jsx # 生涯收入计算器（工具二，静态口径，决策 #15）
 │   │   ├── tests/                   # 属性检定测试组件（第三板块，决策 #16）
@@ -110,14 +111,14 @@
 │   │   ├── educationProjection.json # 队列外推模型输出（2020-2030）
 │   │   ├── census2020.js            # 七普校准数据（含来源与口径注释）
 │   │   └── eduTrends.js             # 教育部毛入学率年度序列
-│   ├── tools/registry.js  # 工具注册表（新增工具 = 加一条；category 驱动侧边栏分组）
-│   ├── tests/registry.js  # 属性检定注册表（第三板块 /tests/，决策 #16）
+│   ├── tools/registry.js  # 辅助工具注册表（新增工具 = 加一条；category 驱动侧边栏分组）
+│   ├── tests/registry.js  # 天赋检测注册表（category 认知领域分组：加工速度/工作记忆与空间/知觉与注意/执行与推理/决策与自控；决策 #16/#17）
 │   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
-│   ├── styles/tokens.css  # M3 设计令牌 + 全局外壳样式（fnos 风格根基）
+│   ├── styles/tokens.css  # 设计令牌 + 全局外壳样式（群星科幻风根基，决策 #17）
 │   └── pages/
-│       ├── index.astro            # 主页 = meta 跳转到 /tools/
-│       ├── tools/index.astro      # 工具页（React 岛屿挂载）
+│       ├── index.astro            # 主页（空页面 MVP，决策 #17 修订五）
+│       ├── tools/index.astro      # 辅助工具页（React 岛屿挂载）
 │       ├── tools/life-quest.astro # 人生主线（首个工具，任务板交互）
 │       ├── articles/index.astro   # 文章列表
 │       ├── articles/[...slug].astro # 文章详情（MDX 渲染 + 排版）

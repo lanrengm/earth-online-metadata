@@ -45,12 +45,10 @@ export default function ToolGrid({ tools = [], base = '' }) {
         <div className="tool-grid">
           {filtered.map((t) => (
             <a key={t.slug} className="app-card tool-card" href={`${base}/tools/${t.slug}/`}>
-              {t.icon && (
-                <div className="tool-icon">
-                  <span className="mi">{t.icon}</span>
-                </div>
-              )}
-              <h3>{t.title}</h3>
+              <div className="tool-head">
+                {t.icon && <span className="mi tool-ic" aria-hidden="true">{t.icon}</span>}
+                <h3>{t.title}</h3>
+              </div>
               <p>{t.desc}</p>
             </a>
           ))}
