@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import DigitSpanTest from '../../components/tests/DigitSpanTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'digit-span')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="数字广度" description="数字逐个闪现后按顺序复现：经典工作记忆容量测量（Miller 7±2）。本机计算，零隐私收集。">
   <h1 class="page-title">数字广度</h1>

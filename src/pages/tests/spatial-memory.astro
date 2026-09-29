@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import SpatialMemoryTest from '../../components/tests/SpatialMemoryTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'spatial-memory')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="空间记忆" description="3×3 网格中色块按序闪现，凭记忆复现位置与顺序：Corsi 经典范式，测空间工作记忆。本机计算，零隐私收集。">
   <h1 class="page-title">空间记忆</h1>

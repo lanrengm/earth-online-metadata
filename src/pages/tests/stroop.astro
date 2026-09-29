@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import StroopTest from '../../components/tests/StroopTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'stroop')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="Stroop 干扰" description="按字的颜色选择、无视字义：经典 Stroop 干扰范式，测干扰抑制能力。本机计算，零隐私收集。">
   <h1 class="page-title">Stroop 干扰</h1>

@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AuditoryReactionTest from '../../components/tests/AuditoryReactionTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'auditory-reaction')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="听觉反应" description="听到提示音的瞬间点击：5 轮取中位数，测你的听觉简单反应时。本机计算，零隐私收集。">
   <h1 class="page-title">听觉反应</h1>

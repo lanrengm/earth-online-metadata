@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import TaskSwitchingTest from '../../components/tests/TaskSwitchingTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'task-switching')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="任务切换" description="规则随机切换的数字/字母分类任务：测认知灵活性与切换成本。本机计算，零隐私收集。">
   <h1 class="page-title">任务切换</h1>

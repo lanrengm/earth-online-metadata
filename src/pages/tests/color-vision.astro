@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ColorVisionTest from '../../components/tests/ColorVisionTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'color-vision')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="色觉辨别" description="9 个色块中找出亮度略异的异色块，逐级变难：测颜色分辨力。受屏幕素质影响，本机计算，零隐私收集。">
   <h1 class="page-title">色觉辨别</h1>

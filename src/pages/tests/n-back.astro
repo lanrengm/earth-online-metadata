@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import NBackTest from '../../components/tests/NBackTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'n-back')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="N-back 记忆" description="当前字母与 2 步前相同吗：经典 2-back 工作记忆更新任务。本机计算，零隐私收集。">
   <h1 class="page-title">N-back 记忆</h1>

@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import VisualSearchTest from '../../components/tests/VisualSearchTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'visual-search')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="视觉搜索" description="在 36 个符号中找出唯一的 ★：经典特征搜索范式，测注意力与目标搜索。本机计算，零隐私收集。">
   <h1 class="page-title">视觉搜索</h1>

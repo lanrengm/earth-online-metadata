@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import DelayGratificationTest from '../../components/tests/DelayGratificationTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'delay-gratification')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="延迟满足" description="立即拿小积分还是等待换大积分：阶梯式延迟满足任务，测你的等待倾向。本机计算，零隐私收集。">
   <h1 class="page-title">延迟满足</h1>

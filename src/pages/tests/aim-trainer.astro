@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AimTrainer from '../../components/tests/AimTrainer.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'aim-trainer')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="手眼精度" description="目标点随机出现尽快点掉，限时 30 秒：测手眼协调与瞄准速度。本机计算，零隐私收集。">
   <h1 class="page-title">手眼精度</h1>

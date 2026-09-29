@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ReactionTest from '../../components/tests/ReactionTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'reaction-time')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="视觉反应" description="屏幕变绿的瞬间点击：5 轮取中位数，测你的视觉简单反应时。本机计算，零隐私收集。">
   <h1 class="page-title">视觉反应</h1>

@@ -4,7 +4,10 @@
 // 1. norm 字段必须如实标注参考分布来源与局限（数据红线见 docs/架构决策.md #16）。
 // 2. category 为认知领域分组（决策 #17 修订七，采用专业认知域命名），数组顺序即侧栏与
 //    页面的分组展示顺序；新增测试请归入对应 category 并插到该组末尾。
-export const tests = [
+// 3. 未完成暂不上线：条目加 `draft: true`，生产构建自动隐藏 + 详情页重定向（决策 #18）。
+import { published } from '../lib/visibility.js';
+
+const allTests = [
   // ── 加工速度（processing speed）+ 心理运动 ──
   {
     slug: 'reaction-time',
@@ -151,3 +154,5 @@ export const tests = [
     tags: ['延迟满足', '自制力', '等待'],
   },
 ];
+
+export const tests = published(allTests); // 生产构建滤除 draft 条目（决策 #18）

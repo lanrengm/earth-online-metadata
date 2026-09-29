@@ -2,11 +2,15 @@
 //
 // 新增一个工具的步骤：
 //   1. 实现：在 src/components/tools/ 写 React 组件，并在 src/pages/tools/<slug>.astro 建页面挂载
+//      （页面 frontmatter 照抄现有页的 draft 守卫，决策 #18）
 //   2. 注册：在下方数组加一条 { slug, title, desc, icon, tags, category }
+//      未完成暂不上线：加 `draft: true`，生产构建自动隐藏 + 详情页重定向；完成后删掉该行
 //   3. 完成：/tools/ 卡片、搜索与侧边栏分类自动生效（category 即侧边栏分组名）
 //
 // 注意：汇率接口 ledger/ 是 APK 专用，与 web 工具无关，不要注册展示。
-export const tools = [
+import { published } from '../lib/visibility.js';
+
+const allTools = [
   {
     slug: 'life-quest',
     title: '人生主线',
@@ -24,3 +28,5 @@ export const tools = [
     category: '个人成长',
   },
 ];
+
+export const tools = published(allTools); // 生产构建滤除 draft 条目（决策 #18）

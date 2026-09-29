@@ -2,6 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import LifeQuestTree from '../../components/tools/LifeQuestTree.jsx';
 import { questBranches } from '../../tools/lifeQuestData.js';
+import { isLive } from '../../lib/visibility.js';
+import { tools } from '../../tools/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tools, 'life-quest')) return Astro.redirect(withBase('/tools/'));
 ---
 <Base
   title="人生主线"

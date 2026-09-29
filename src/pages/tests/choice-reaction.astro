@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ChoiceReactionTest from '../../components/tests/ChoiceReactionTest.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tests } from '../../tests/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tests, 'choice-reaction')) return Astro.redirect(withBase('/tests/'));
 ---
 <Base title="选择反应" description="四个方块随机亮起，点对亮的那个：测 4 选 1 选择反应时与抑制控制。本机计算，零隐私收集。">
   <h1 class="page-title">选择反应</h1>

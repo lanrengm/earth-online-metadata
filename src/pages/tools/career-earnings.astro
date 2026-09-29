@@ -1,6 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import EarningsCalculator from '../../components/tools/EarningsCalculator.jsx';
+import { isLive } from '../../lib/visibility.js';
+import { tools } from '../../tools/registry.js';
+import { withBase } from '../../lib/paths.js';
+
+/* Draft 守卫（决策 #18）：生产注册表查无此条目（draft 已滤除）时重定向回板块首页 */
+if (!isLive(tools, 'career-earnings')) return Astro.redirect(withBase('/tools/'));
 ---
 <Base
   title="生涯收入"

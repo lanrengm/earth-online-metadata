@@ -51,7 +51,7 @@
 ## 内容创作
 
 - **发文章**：在 `src/content/articles/` 加一个 `.mdx`（frontmatter：title/description/date/tags），列表页与详情页自动生成；内嵌多媒体组件从 `src/components/articles/` import（如 `DataPanel`）。
-- **上工具**：实现 React 组件 + `src/pages/tools/<slug>.astro` 页面，然后在 `src/tools/registry.js` 注册一条（含 `category` 侧边栏分组名），搜索、卡片与侧边栏自动生效。
+- **上工具**：实现 React 组件 + `src/pages/tools/<slug>.astro` 页面，然后在 `src/tools/registry.js` 注册一条（含 `category` 侧边栏分组名），搜索、卡片与侧边栏自动生效。未完成暂不上线：注册表条目加 `draft: true`（生产构建自动隐藏 + 详情页重定向，本地 dev 照常可见；决策 #18）。
 
 ## 发布
 
@@ -111,8 +111,9 @@
 │   │   ├── educationProjection.json # 队列外推模型输出（2020-2030）
 │   │   ├── census2020.js            # 七普校准数据（含来源与口径注释）
 │   │   └── eduTrends.js             # 教育部毛入学率年度序列
-│   ├── tools/registry.js  # 辅助工具注册表（新增工具 = 加一条；category 驱动侧边栏分组）
+│   ├── tools/registry.js  # 辅助工具注册表（新增工具 = 加一条；category 驱动侧边栏分组；draft 开关见决策 #18）
 │   ├── tests/registry.js  # 天赋检测注册表（category 认知领域分组：加工速度/工作记忆与空间/知觉与注意/执行与推理/决策与自控；决策 #16/#17）
+│   ├── lib/visibility.js  # draft 功能开关（决策 #18）：published 过滤 + isLive 详情页守卫，draftsVisible=DEV
 │   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
 │   ├── styles/tokens.css  # 设计令牌 + 全局外壳样式（群星科幻风根基，决策 #17）
