@@ -1,7 +1,149 @@
 ---
-// 主页（决策 #17 修订五：一级导航新增主页，路由在 /，原跳板页移除；空页面 MVP）
+// 主页（决策 #17 修订八定稿）：游戏开机画面 + PATCH NOTES 版本公告
+// 世界观：人生是一款没有新手教程的游戏，出生即入局；主页即标题画面
 import Base from '../layouts/Base.astro';
+import { patchNotes } from '../data/patchNotes.js';
+import { areaVisible } from '../lib/visibility.js';
+import { withBase } from '../lib/paths.js';
+
+/* 主 CTA 指向天赋检测；板块未发布时渲染灰态「即将开放」（决策 #18 修订一） */
+const testsOpen = areaVisible('tests');
+const latest = patchNotes[0];
 ---
-<Base title="主页">
-  <p class="page-sub">地球在线 · 空间站建设中</p>
+<Base title="主页" description="地球在线：人生是一款没有新手教程的游戏。属性扫描、人生攻略与辅助模块，全部本机运行、零隐私收集。">
+  <div class="boot">
+    {/* ── 开机画面：标题 + 世界观 + 主 CTA + 服务器状态行 ── */}
+    <section class="boot-hero">
+      <p class="boot-kicker">MULTIPLAYER LIFE SIMULATION // SERVER: EARTH-1</p>
+      <h1 class="boot-title">地球<em>ONLINE</em></h1>
+      <p class="boot-sub">人生没有新手教程，出生即入局。<br />在这里扫描你的属性、查阅通关攻略、装上辅助模块。</p>
+      <div class="boot-cta">
+        {testsOpen ? (
+          <a class="boot-btn" href={withBase('/tests/')}>
+            扫描我的属性
+            <span class="mi" aria-hidden="true">arrow_forward</span>
+          </a>
+        ) : (
+          <span class="boot-btn is-locked">
+            扫描我的属性
+            <span class="boot-lock">即将开放</span>
+          </span>
+        )}
+      </div>
+      <p class="boot-status">
+        <span class="boot-dot" aria-hidden="true"></span>
+        <span class="mono">ONLINE 8,231,000,000 · SIGNAL STABLE · BUILD {latest?.version ?? 'v0.0'}</span>
+      </p>
+    </section>
+
+    {/* ── PATCH NOTES 版本公告 ── */}
+    <section class="patch" aria-label="版本公告">
+      <h2 class="patch-heading">PATCH NOTES<span class="patch-heading-sub">版本公告</span></h2>
+      {patchNotes.map((n, i) => (
+        <article class:list={['patch-card', { 'is-latest': i === 0 }]}>
+          <header class="patch-head">
+            <span class="patch-ver">{n.version}</span>
+            <h3 class="patch-title">{n.title}</h3>
+            <time class="patch-date" datetime={n.date}>{n.date}</time>
+          </header>
+          <ul class="patch-items">
+            {n.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </section>
+  </div>
 </Base>
+
+<style>
+  .boot { max-width: 880px; }
+
+  /* ── 开机画面 ── */
+  .boot-hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--outline-variant);
+  }
+  .boot-kicker {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 2.5px;
+    color: var(--primary); margin-bottom: 18px;
+  }
+  .boot-title {
+    font-family: var(--font-title); font-size: clamp(44px, 8vw, 72px);
+    font-weight: 800; letter-spacing: 6px; line-height: 1.1;
+    color: var(--on-surface); margin-bottom: 18px;
+  }
+  .boot-title em {
+    font-style: normal; color: var(--primary);
+    margin-left: 10px; letter-spacing: 3px;
+  }
+  .boot-sub {
+    font-size: 16px; line-height: 1.8; color: var(--on-surface-variant);
+    margin-bottom: 32px;
+  }
+  .boot-cta { margin-bottom: 28px; }
+  .boot-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 30px; border-radius: var(--radius-md);
+    background: var(--primary); color: var(--on-primary);
+    font-size: 16px; font-weight: 700; font-family: var(--font-title);
+    letter-spacing: 2px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    transition: filter .15s ease;
+  }
+  .boot-btn .mi { font-size: 20px; }
+  a.boot-btn:hover { filter: brightness(1.12); text-decoration: none; }
+  .boot-btn.is-locked {
+    background: var(--surface-container-high); color: var(--on-surface-variant);
+    cursor: default;
+  }
+  .boot-lock {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px;
+    padding: 2px 8px; border: 1px solid var(--outline-variant); border-radius: 999px;
+  }
+  .boot-status {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--on-surface-variant);
+  }
+  .boot-status .mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; }
+  .boot-dot {
+    width: 6px; height: 6px; border-radius: 999px;
+    background: var(--primary); box-shadow: 0 0 6px var(--primary);
+  }
+
+  /* ── 版本公告 ── */
+  .patch { padding: 40px 0 24px; }
+  .patch-heading {
+    display: flex; align-items: baseline; gap: 12px;
+    font-family: var(--font-mono); font-size: 14px; letter-spacing: 2.5px;
+    color: var(--on-surface); margin-bottom: 20px;
+  }
+  .patch-heading-sub { font-family: var(--font-body); font-size: 12.5px; letter-spacing: 1px; color: var(--on-surface-variant); }
+  .patch-card {
+    border: 1px solid var(--outline-variant); border-radius: var(--radius-md);
+    padding: 18px 22px; margin-bottom: 14px;
+    background: var(--surface-container-low);
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  }
+  .patch-card.is-latest { border-left: 2px solid var(--primary); }
+  .patch-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .patch-ver {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px;
+    color: var(--primary);
+  }
+  .patch-title { font-family: var(--font-title); font-size: 15.5px; font-weight: 700; color: var(--on-surface); }
+  .patch-date { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-variant); }
+  .patch-items { display: flex; flex-direction: column; gap: 6px; }
+  .patch-items li {
+    position: relative; padding-left: 16px;
+    font-size: 13.5px; line-height: 1.6; color: var(--on-surface-variant);
+  }
+  .patch-items li::before {
+    content: '▸'; position: absolute; left: 0;
+    color: var(--primary); font-size: 12px;
+  }
+
+  @media (max-width: 767px) {
+    .boot-hero { padding: 48px 0 40px; }
+    .patch-date { margin-left: 0; width: 100%; }
+  }
+</style>

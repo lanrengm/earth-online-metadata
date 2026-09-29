@@ -13,6 +13,7 @@ import { published } from '../lib/visibility.js';
 const allTools = [
   {
     slug: 'life-quest',
+    draft: true, // 板块未发布（releasedAreas.tools），上线时删除此行（决策 #18）
     title: '人生主线',
     desc: '把目标拆成可执行任务，勾选推进你的三系人生进度',
     icon: 'account_tree',
@@ -21,6 +22,7 @@ const allTools = [
   },
   {
     slug: 'career-earnings',
+    draft: true, // 板块未发布（releasedAreas.tools），上线时删除此行（决策 #18）
     title: '生涯收入',
     desc: '输入年龄与月薪，计算到退休还能赚多少',
     icon: 'payments',

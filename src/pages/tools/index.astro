@@ -2,7 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import ToolGrid from '../../components/tools/ToolGrid.jsx';
 import { tools } from '../../tools/registry.js';
+import { areaVisible } from '../../lib/visibility.js';
 import { withBase } from '../../lib/paths.js';
+
+/* 板块未发布时整页重定向回主页（决策 #18 修订一） */
+if (!areaVisible('tools')) return Astro.redirect(withBase('/'));
 ---
 <Base title="辅助工具" description="免费、纯本地计算、无需登录的小工具合集，与 Earth Online 人生面板同源设计。">
   <p class="page-sub">免登录即用的辅助模块，全部数据在本机运算，不上传服务器</p>

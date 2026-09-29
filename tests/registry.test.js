@@ -23,6 +23,7 @@ function checkRegistry(name, entries) {
         expect(typeof t.icon === 'string' || t.icon === undefined).toBe(true);
         expect(Array.isArray(t.tags ?? [])).toBe(true);
         if (t.category !== undefined) expect(t.category.trim().length).toBeGreaterThan(0);
+        if (t.draft !== undefined) expect(typeof t.draft).toBe('boolean');
       }
     });
   });

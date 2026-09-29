@@ -3,6 +3,7 @@
 // 一级导航在侧栏（决策 #17 修订四/五），顶栏只留系统级工具
 import GlobalSearch from './tools/GlobalSearch.jsx';
 import { tools } from '../tools/registry.js';
+import { areaVisible } from '../lib/visibility.js';
 import { withBase } from '../lib/paths.js';
 
 interface Props {
@@ -23,6 +24,9 @@ const zone = current === '/'
   : zones.find((z) => current.startsWith(z.prefix)) ?? { label: '主页' };
 /* 路径式面包屑：一级页只显区域名，详情页显示 区域/页面（决策 #17 修订五） */
 const crumb = title && title !== zone.label ? `${zone.label}/${title}` : zone.label;
+
+/* 工具板块未发布时隐藏搜索触发器（搜索只覆盖工具，决策 #18 修订一） */
+const showSearch = areaVisible('tools') && tools.length > 0;
 ---
 
 <header class="app-nav">
@@ -40,12 +44,14 @@ const crumb = title && title !== zone.label ? `${zone.label}/${title}` : zone.la
       <span class="app-zone">{crumb}</span>
     </div>
     <div class="app-nav-right">
-      <GlobalSearch
-        client:load
-        tools={tools}
-        base={withBase('')}
-        onHome={isToolsHome}
-      />
+      {showSearch && (
+        <GlobalSearch
+          client:load
+          tools={tools}
+          base={withBase('')}
+          onHome={isToolsHome}
+        />
+      )}
       <button class="theme-btn" type="button" title="点击切换主题">
         <span class="mi" aria-hidden="true">light_mode</span>
         <span class="theme-label">跟随系统</span>

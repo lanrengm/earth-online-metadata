@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { tools } from '../tools/registry.js';
 import { tests } from '../tests/registry.js';
+import { areaVisible } from '../lib/visibility.js';
 import { withBase } from '../lib/paths.js';
 
 interface Props {
@@ -14,13 +15,14 @@ const isArticlesArea = current.startsWith('/articles');
 const isTestsArea = current.startsWith('/tests');
 const isToolsArea = current.startsWith('/tools');
 
-/* 一级导航（决策 #17 修订四/五：主页/攻略/辅助工具/天赋检测，单列动线全站唯一高亮源） */
+/* 一级导航（决策 #17 修订四/五：主页/攻略/辅助工具/天赋检测，单列动线全站唯一高亮源）
+   未发布板块按 releasedAreas 开关隐藏（决策 #18） */
 const areas = [
   { href: '/', label: '主页', icon: 'home', active: current === '/' },
-  { href: '/articles/', label: '攻略', icon: 'article', active: isArticlesArea },
-  { href: '/tools/', label: '辅助工具', icon: 'widgets', active: isToolsArea },
-  { href: '/tests/', label: '天赋检测', icon: 'psychology', active: isTestsArea },
-];
+  { href: '/articles/', label: '攻略', icon: 'article', active: isArticlesArea, area: 'articles' },
+  { href: '/tools/', label: '辅助工具', icon: 'widgets', active: isToolsArea, area: 'tools' },
+  { href: '/tests/', label: '天赋检测', icon: 'psychology', active: isTestsArea, area: 'tests' },
+].filter((a) => !a.area || areaVisible(a.area));
 
 const groups = new Map<string, typeof tools>();
 for (const t of tools) {
@@ -49,7 +51,7 @@ const articles = isArticlesArea
 <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
 <aside class="tool-sidebar" id="tool-sidebar" aria-label="侧边导航">
   <div class="ts-inner">
-    <a href={withBase('/tools/')} class="ts-brand">
+    <a href={withBase('/')} class="ts-brand">
       <span class="ts-brand-sub">EARTH ONLINE</span>
       <span class="ts-brand-name">17 号玩家</span>
       <span class="ts-brand-meta"><span class="ts-brand-dot"></span>PLAYER · 17</span>

@@ -9,6 +9,22 @@
 /** 本地开发服务器（astro dev / vitest）可见 draft，生产构建不可见 */
 export const draftsVisible = import.meta.env?.DEV === true;
 
+/**
+ * 板块级发布开关（决策 #18 修订一）：true = 已对用户开放。
+ * 生产构建只放行 true 的板块（侧栏一级导航 + 列表页 + 详情页 + 搜索联动）；
+ * 本地开发不受影响（全量可见，继续开发测试）。板块正式上线时把对应值翻 true。
+ */
+export const releasedAreas = {
+  articles: false,
+  tools: false,
+  tests: false,
+};
+
+/** 板块对当前构建目标是否可见 */
+export function areaVisible(area) {
+  return draftsVisible || releasedAreas[area] === true;
+}
+
 /** 过滤注册表：生产环境剔除 draft 条目（导出处调用，消费方无感） @template T @param {T[]} list @returns {T[]} */
 export function published(list) {
   return draftsVisible ? list : list.filter((it) => !it.draft);

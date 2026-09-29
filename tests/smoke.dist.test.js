@@ -10,10 +10,11 @@ const dist = join(import.meta.dirname, '../dist');
 const distReady = existsSync(dist);
 
 describe.skipIf(!distReady)('dist smoke', () => {
-  it('主页生成且链接带 base 前缀（决策 #17 修订五：主页路由在 /，原跳板页移除）', () => {
+  it('主页生成且链接带 base 前缀（决策 #17 修订八：开机画面 + 版本公告）', () => {
     const html = readFileSync(join(dist, 'index.html'), 'utf-8');
     expect(html).not.toContain('http-equiv="refresh"');
-    expect(html).toContain('/earth-online-metadata/tools/');
+    expect(html).toContain('EARTH ONLINE');
+    expect(html).toContain('/earth-online-metadata/privacy/');
   });
 
   it('关键路由页面均生成', () => {
@@ -52,9 +53,17 @@ describe.skipIf(!distReady)('dist smoke', () => {
     expect(existsSync(join(dist, 'data', 'census2020', 'A0401.xls'))).toBe(true);
   });
 
-  it('页面内链接带 base 前缀（抽查工具页）', () => {
-    const html = readFileSync(join(dist, 'tools/index.html'), 'utf-8');
-    expect(html).toContain('/earth-online-metadata/articles/');
+  it('未发布板块：列表页重定向回主页（决策 #18 修订一 releasedAreas）', () => {
+    for (const page of ['tools/index.html', 'tests/index.html', 'articles/index.html']) {
+      const html = readFileSync(join(dist, page), 'utf-8');
+      expect(html, `${page} 应为重定向页`).toContain('http-equiv="refresh"');
+      expect(html, `${page} 应重定向到主页`).toContain('/earth-online-metadata/');
+    }
+  });
+
+  it('页面内链接带 base 前缀（抽查隐私页）', () => {
+    const html = readFileSync(join(dist, 'privacy/index.html'), 'utf-8');
+    expect(html).toContain('/earth-online-metadata/terms/');
     expect(html).not.toMatch(/href="\/(tools|articles|privacy|terms)\//);
   });
 });

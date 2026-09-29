@@ -41,7 +41,7 @@
 关键约定：
 
 - **base 路径**：部署在 gh-pages 子路径 `/earth-online-metadata/`，页面内所有链接必须经 `src/lib/paths.js` 的 `withBase()` 生成，禁止硬编码 `/tools/` 这类根路径。
-- **路由**：`/` 主页（空页面 MVP，决策 #17 修订五，原跳板页已移除）；`/tools/` 辅助工具、`/articles/` 攻略、`/tests/` 天赋检测、`/privacy/`、`/terms/`；`trailingSlash: 'always'`。
+- **路由**：`/` 主页（开机画面 + PATCH NOTES 版本公告，决策 #17 修订八）；`/tools/` 辅助工具、`/articles/` 攻略、`/tests/` 天赋检测、`/privacy/`、`/terms/`；`trailingSlash: 'always'`。板块发布开关 `src/lib/visibility.js` 的 `releasedAreas`（决策 #18 修订一）：false 时侧栏隐藏入口、列表页重定向回主页、搜索与主页 CTA 灰态。
 - **主题**：亮/暗/跟随系统三态循环，**暗色为默认**（决策 #17），偏好存 `localStorage('eo_theme')`；首屏防闪脚本在 `Base.astro` head 内联，切换逻辑在 `AppNav.astro`。
 - **导航与顶栏**：一级导航（主页/攻略/辅助工具/天赋检测）在侧栏（品牌块下方四区切换，唯一高亮源）；顶栏纯工具化 = 汉堡 + 路径式面包屑（`区域/页面`，Base 传 title）+ 搜索触发器 + 主题切换（决策 #14/#17 修订四/五）。
 - **组件样式作用域**：`.astro` 页面用 scoped `<style>`；React 岛屿的样式用宿主页 `<style is:global>`（scoped 选择器打不进岛屿 DOM）。
@@ -52,6 +52,7 @@
 
 - **发文章**：在 `src/content/articles/` 加一个 `.mdx`（frontmatter：title/description/date/tags），列表页与详情页自动生成；内嵌多媒体组件从 `src/components/articles/` import（如 `DataPanel`）。
 - **上工具**：实现 React 组件 + `src/pages/tools/<slug>.astro` 页面，然后在 `src/tools/registry.js` 注册一条（含 `category` 侧边栏分组名），搜索、卡片与侧边栏自动生效。未完成暂不上线：注册表条目加 `draft: true`（生产构建自动隐藏 + 详情页重定向，本地 dev 照常可见；决策 #18）。
+- **发版本公告**：每次 release 在 `src/data/patchNotes.js` 顶部加一条 `{ version, date, title, items[] }`，主页 PATCH NOTES 自动渲染。
 
 ## 发布
 
@@ -110,15 +111,16 @@
 │   │   ├── census2020SingleAge.json # 七普表4-1单岁基线（模型输入）
 │   │   ├── educationProjection.json # 队列外推模型输出（2020-2030）
 │   │   ├── census2020.js            # 七普校准数据（含来源与口径注释）
-│   │   └── eduTrends.js             # 教育部毛入学率年度序列
+│   │   ├── eduTrends.js             # 教育部毛入学率年度序列
+│   │   └── patchNotes.js            # 版本公告（PATCH NOTES，主页渲染；发版 = 顶部加一条）
 │   ├── tools/registry.js  # 辅助工具注册表（新增工具 = 加一条；category 驱动侧边栏分组；draft 开关见决策 #18）
 │   ├── tests/registry.js  # 天赋检测注册表（category 认知领域分组：加工速度/工作记忆与空间/知觉与注意/执行与推理/决策与自控；决策 #16/#17）
-│   ├── lib/visibility.js  # draft 功能开关（决策 #18）：published 过滤 + isLive 详情页守卫，draftsVisible=DEV
+│   ├── lib/visibility.js  # draft 功能开关（决策 #18）：published 过滤 + isLive 详情页守卫 + releasedAreas 板块发布开关
 │   ├── tools/lifeQuestData.js # 人生主线任务树数据（任务 id 稳定，勿改）
 │   ├── lib/paths.js       # withBase：gh-pages 子路径链接前缀
 │   ├── styles/tokens.css  # 设计令牌 + 全局外壳样式（群星科幻风根基，决策 #17）
 │   └── pages/
-│       ├── index.astro            # 主页（空页面 MVP，决策 #17 修订五）
+│       ├── index.astro            # 主页（开机画面 + PATCH NOTES，决策 #17 修订八）
 │       ├── tools/index.astro      # 辅助工具页（React 岛屿挂载）
 │       ├── tools/life-quest.astro # 人生主线（首个工具，任务板交互）
 │       ├── articles/index.astro   # 文章列表

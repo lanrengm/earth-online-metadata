@@ -11,6 +11,8 @@ const articles = defineCollection({
     tags: z.array(z.string()).default([]),
     // 列表条目配图（静态截图放 public/ 下，填根路径如 /images/articles/xxx.png）；缺省时列表显示品牌色块占位
     image: z.string().optional(),
+    // 未完成暂不上线：frontmatter 加 draft: true，生产构建不列出且详情页重定向（决策 #18）
+    draft: z.boolean().default(false),
   }),
 });
 

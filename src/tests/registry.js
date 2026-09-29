@@ -9,8 +9,10 @@ import { published } from '../lib/visibility.js';
 
 const allTests = [
   // ── 加工速度（processing speed）+ 心理运动 ──
+  // 注：板块未发布（releasedAreas.tests），以下 draft 行在板块上线时统一删除（决策 #18 修订一）
   {
     slug: 'reaction-time',
+    draft: true,
     title: '视觉反应',
     desc: '屏幕变绿的瞬间点击，5 轮取中位数',
     icon: 'visibility',
@@ -19,6 +21,7 @@ const allTests = [
   },
   {
     slug: 'auditory-reaction',
+    draft: true,
     title: '听觉反应',
     desc: '听到提示音的瞬间点击，5 轮取中位数',
     icon: 'volume_up',
@@ -27,6 +30,7 @@ const allTests = [
   },
   {
     slug: 'choice-reaction',
+    draft: true,
     title: '选择反应',
     desc: '四个方块随机亮起，点对亮的那个',
     icon: 'filter_alt',
@@ -35,6 +39,7 @@ const allTests = [
   },
   {
     slug: 'aim-trainer',
+    draft: true,
     title: '手眼精度',
     desc: '目标点随机出现，尽快点掉，30 秒极限',
     icon: 'ads_click',
@@ -45,6 +50,7 @@ const allTests = [
   // ── 工作记忆（Gwm）+ 空间认知（Gv） ──
   {
     slug: 'digit-span',
+    draft: true,
     title: '数字广度',
     desc: '数字闪现后按顺序复现，测工作记忆容量',
     icon: 'timeline',
@@ -53,6 +59,7 @@ const allTests = [
   },
   {
     slug: 'n-back',
+    draft: true,
     title: 'N-back 记忆',
     desc: '当前字母是否与 2 步前相同？测工作记忆更新',
     icon: 'repeat',
@@ -61,6 +68,7 @@ const allTests = [
   },
   {
     slug: 'spatial-memory',
+    draft: true,
     title: '空间记忆',
     desc: '色块闪现的位置和顺序，凭记忆复现',
     icon: 'view_module',
@@ -69,6 +77,7 @@ const allTests = [
   },
   {
     slug: 'mental-rotation',
+    draft: true,
     title: '心理旋转',
     desc: '判断旋转后的图形是同一个还是镜像',
     icon: 'rotate_right',
@@ -79,6 +88,7 @@ const allTests = [
   // ── 知觉与注意 ──
   {
     slug: 'visual-search',
+    draft: true,
     title: '视觉搜索',
     desc: '在一堆干扰符号中找出唯一目标',
     icon: 'grid_view',
@@ -87,6 +97,7 @@ const allTests = [
   },
   {
     slug: 'time-perception',
+    draft: true,
     title: '时间感知',
     desc: '不看钟，凭感觉估出目标时长后停止',
     icon: 'schedule',
@@ -95,6 +106,7 @@ const allTests = [
   },
   {
     slug: 'color-vision',
+    draft: true,
     title: '色觉辨别',
     desc: '色块中藏了一个异色块，逐级变难',
     icon: 'contrast',
@@ -105,6 +117,7 @@ const allTests = [
   // ── 执行功能 + 流体推理（Gf） ──
   {
     slug: 'stroop',
+    draft: true,
     title: 'Stroop 干扰',
     desc: '按字的颜色选择，无视字义干扰',
     icon: 'palette',
@@ -113,6 +126,7 @@ const allTests = [
   },
   {
     slug: 'task-switching',
+    draft: true,
     title: '任务切换',
     desc: '规则随机切换：按奇偶或按元音分类，测切换成本',
     icon: 'alt_route',
@@ -121,6 +135,7 @@ const allTests = [
   },
   {
     slug: 'number-series',
+    draft: true,
     title: '逻辑推理',
     desc: '找出数列规律，选出下一个数',
     icon: 'quiz',
@@ -129,6 +144,7 @@ const allTests = [
   },
   {
     slug: 'mental-math',
+    draft: true,
     title: '心算速度',
     desc: '连续加减乘，看你的数学流畅性',
     icon: 'calculate',
@@ -139,6 +155,7 @@ const allTests = [
   // ── 决策倾向 + 冲动控制 ──
   {
     slug: 'risk-preference',
+    draft: true,
     title: '风险偏好',
     desc: '确定的小奖还是五五开的大奖？六道选择题',
     icon: 'casino',
@@ -147,6 +164,7 @@ const allTests = [
   },
   {
     slug: 'delay-gratification',
+    draft: true,
     title: '延迟满足',
     desc: '立即拿小积分，还是等待换大积分？',
     icon: 'hourglass',

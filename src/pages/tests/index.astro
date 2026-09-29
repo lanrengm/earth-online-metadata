@@ -2,7 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import AbilityRadar from '../../components/tests/AbilityRadar.jsx';
 import { tests } from '../../tests/registry.js';
+import { areaVisible } from '../../lib/visibility.js';
 import { withBase } from '../../lib/paths.js';
+
+/* 板块未发布时整页重定向回主页（决策 #18 修订一） */
+if (!areaVisible('tests')) return Astro.redirect(withBase('/'));
 
 /* 按认知领域分组（决策 #17 修订七），注册表顺序即展示顺序 */
 const testGroups = new Map<string, typeof tests>();

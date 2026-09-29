@@ -1,11 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { areaVisible, draftsVisible } from '../../lib/visibility.js';
 import { withBase } from '../../lib/paths.js';
 
-const articles = (await getCollection('articles')).sort(
+/* 板块未发布时整页重定向回主页（决策 #18 修订一） */
+if (!areaVisible('articles')) return Astro.redirect(withBase('/'));
+
+const all = (await getCollection('articles')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+/* draft 文章生产环境不列出（决策 #18） */
+const articles = draftsVisible ? all : all.filter((a) => !a.data.draft);
 ---
 <Base title="攻略" description="Earth Online 知识博客：把人生、数据与工具背后的原理讲清楚。">
   <p class="page-sub">通关这款游戏的玩家笔记：用官方数据拆解底层机制</p>
